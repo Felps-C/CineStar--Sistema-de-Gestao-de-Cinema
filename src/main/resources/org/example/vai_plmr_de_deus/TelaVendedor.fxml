@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="500.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.vai_plmr_de_deus.ControllerTelaVendedor">
+
+        <children>
+
+            <Label layoutX="20.0" layoutY="22.0" text="ESTOQUE DA LANCHONETE" />
+
+            <ListView fx:id="lvProdutos" layoutX="20.0" layoutY="50.0" prefHeight="200" prefWidth="200" />
+
+            <Spinner fx:id="spQuantidade" layoutX="240.0" layoutY="124.0" />
+
+            <Button layoutX="240.0" layoutY="174.0" onAction="#atualizarEstoque" text="Atualizar Estoque" />
+
+            <Button layoutX="240.0" layoutY="214.0" onAction="#solicitarReposicao" text="Solicitar Reposição" />
+
+            <Label fx:id="lblMensagem" layoutX="20" layoutY="260" visible="false" />
+      <Button fx:id="Voltar" layoutX="20.0" layoutY="315.0" mnemonicParsing="false" onAction="#VoltarLogin" text="Login" />
+
+        </children>
+    </AnchorPane>
