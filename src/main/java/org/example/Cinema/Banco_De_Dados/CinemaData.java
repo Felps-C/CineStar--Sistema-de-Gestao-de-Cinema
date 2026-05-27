@@ -1,4 +1,4 @@
-package org.example.vai_plmr_de_deus;
+package org.example.Cinema.Banco_De_Dados;
 
 import java.util.ArrayList;
 import java.util.List;

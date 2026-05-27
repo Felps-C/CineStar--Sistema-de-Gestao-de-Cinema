@@ -1,6 +1,5 @@
-package org.example.vai_plmr_de_deus;
+package org.example.Cinema.Controller;
 import java.io.IOException;
-import java.util.List;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,8 +13,9 @@ import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import org.example.vai_plmr_de_deus.CinemaData;
-import org.example.vai_plmr_de_deus.Filme;
+import org.example.Cinema.Banco_De_Dados.CinemaData;
+import org.example.Cinema.Banco_De_Dados.Filme;
+
 public class ControllerTelaCliente {
 
         @FXML private ListView<Filme> lvFilmes;

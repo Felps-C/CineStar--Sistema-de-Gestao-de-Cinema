@@ -1,4 +1,4 @@
-package org.example.vai_plmr_de_deus;
+package org.example.Cinema;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

@@ -1,4 +1,4 @@
-package org.example.vai_plmr_de_deus;
+package org.example.Cinema.Controller;
 
 import java.io.IOException;
 import javafx.event.ActionEvent;

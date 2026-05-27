@@ -1,4 +1,4 @@
-package org.example.vai_plmr_de_deus;
+package org.example.Cinema.Controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -8,8 +8,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import org.example.vai_plmr_de_deus.Estoque;
-import org.example.vai_plmr_de_deus.Produto;
+import org.example.Cinema.Banco_De_Dados.Estoque;
+import org.example.Cinema.Banco_De_Dados.Produto;
 
 import java.io.IOException;
 

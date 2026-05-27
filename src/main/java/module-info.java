@@ -1,4 +1,4 @@
-module org.example.vai_plmr_de_deus {
+module org.example.Cinema {
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.web;
@@ -11,6 +11,10 @@ module org.example.vai_plmr_de_deus {
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
 
-    opens org.example.vai_plmr_de_deus to javafx.fxml;
-    exports org.example.vai_plmr_de_deus;
+    opens org.example.Cinema to javafx.fxml;
+    exports org.example.Cinema;
+    exports org.example.Cinema.Controller;
+    opens org.example.Cinema.Controller to javafx.fxml;
+    exports org.example.Cinema.Banco_De_Dados;
+    opens org.example.Cinema.Banco_De_Dados to javafx.fxml;
 }
