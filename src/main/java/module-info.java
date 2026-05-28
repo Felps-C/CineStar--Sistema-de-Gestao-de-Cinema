@@ -13,8 +13,8 @@ module org.example.Cinema {
 
     opens org.example.Cinema to javafx.fxml;
     exports org.example.Cinema;
-    exports org.example.Cinema.Controller;
-    opens org.example.Cinema.Controller to javafx.fxml;
+    exports org.example.Cinema.Controlador;
+    opens org.example.Cinema.Controlador to javafx.fxml;
     exports org.example.Cinema.Banco_De_Dados;
     opens org.example.Cinema.Banco_De_Dados to javafx.fxml;
 }

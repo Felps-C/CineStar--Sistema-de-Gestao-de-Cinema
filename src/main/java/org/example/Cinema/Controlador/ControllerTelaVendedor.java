@@ -1,4 +1,4 @@
-package org.example.Cinema.Controller;
+package org.example.Cinema.Controlador;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -68,7 +68,7 @@ public class ControllerTelaVendedor {
         lblMensagem.setVisible(true);
     }
     public void VoltarLogin(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/org/example/Cinema/Login.fxml"));
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root));
         stage.show();

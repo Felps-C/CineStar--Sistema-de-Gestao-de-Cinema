@@ -1,4 +1,4 @@
-package org.example.Cinema.Controller;
+package org.example.Cinema.Controlador;
 
 import java.io.IOException;
 import javafx.event.ActionEvent;
@@ -28,15 +28,15 @@ public class ControllerLogin {
         lblErro.setText("");
 
         if (email.equals("cliente") && senha.equals("123")) {
-            root = FXMLLoader.load(getClass().getResource("TelaCliente.fxml"));
+            root = FXMLLoader.load(getClass().getResource("/org/example/Cinema/TelaCliente.fxml"));
         }
 
         else if (email.equals("vendedor") && senha.equals("123")) {
-            root = FXMLLoader.load(getClass().getResource("TelaVendedor.fxml"));
+            root = FXMLLoader.load(getClass().getResource("/org/example/Cinema/TelaVendedor.fxml"));
         }
 
         else if (email.equals("gerente") && senha.equals("123")) {
-            root = FXMLLoader.load(getClass().getResource("TelaGerente.fxml"));
+            root = FXMLLoader.load(getClass().getResource("/org/example/Cinema/TelaGerente.fxml"));
         }
 
         else {
