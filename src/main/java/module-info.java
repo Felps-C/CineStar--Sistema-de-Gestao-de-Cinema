@@ -1,4 +1,6 @@
 module org.example.Cinema {
+
+    requires java.sql;
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.web;
@@ -15,6 +17,6 @@ module org.example.Cinema {
     exports org.example.Cinema;
     exports org.example.Cinema.Controlador;
     opens org.example.Cinema.Controlador to javafx.fxml;
-    exports org.example.Cinema.Banco_De_Dados;
-    opens org.example.Cinema.Banco_De_Dados to javafx.fxml;
+    exports org.example.Cinema.Model;
+    opens org.example.Cinema.Model to javafx.fxml;
 }

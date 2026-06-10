@@ -1,4 +1,4 @@
-package org.example.Cinema.Banco_De_Dados;
+package org.example.Cinema.Model;
 
 import java.util.List;
 

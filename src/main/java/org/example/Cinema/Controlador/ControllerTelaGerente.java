@@ -8,10 +8,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import org.example.Cinema.Banco_De_Dados.CinemaData;
-import org.example.Cinema.Banco_De_Dados.Estoque;
-import org.example.Cinema.Banco_De_Dados.Filme;
-import org.example.Cinema.Banco_De_Dados.Produto;
+import org.example.Cinema.Model.CinemaData;
+import org.example.Cinema.Model.Estoque;
+import org.example.Cinema.Model.Filme;
+import org.example.Cinema.Model.Produto;
 
 import java.io.IOException;
 import java.util.List;
