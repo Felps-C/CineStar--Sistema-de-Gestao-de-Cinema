@@ -13,8 +13,8 @@ import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import org.example.Cinema.Banco_De_Dados.CinemaData;
-import org.example.Cinema.Banco_De_Dados.Filme;
+import org.example.Cinema.Model.CinemaData;
+import org.example.Cinema.Model.Filme;
 
 public class ControllerTelaCliente {
 

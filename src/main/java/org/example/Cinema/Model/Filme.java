@@ -1,4 +1,4 @@
-package org.example.Cinema.Banco_De_Dados;
+package org.example.Cinema.Model;
 
 import java.util.List;
 
@@ -20,7 +20,8 @@ public class Filme {
          this.preco = preco;
          this.sessoes = sessoes;
      }
-        public String getNome() {
+
+    public String getNome() {
          return nome;
      }
 
@@ -80,4 +81,5 @@ public class Filme {
      public String toString() {
          return nome;
      }
+
 }
