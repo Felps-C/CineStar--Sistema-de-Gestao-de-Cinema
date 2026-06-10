@@ -20,7 +20,8 @@ public class Filme {
          this.preco = preco;
          this.sessoes = sessoes;
      }
-        public String getNome() {
+
+    public String getNome() {
          return nome;
      }
 
@@ -80,4 +81,5 @@ public class Filme {
      public String toString() {
          return nome;
      }
+
 }
