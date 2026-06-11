@@ -1,6 +1,7 @@
 package org.example.Cinema.Controlador;
 import java.io.IOException;
 
+import dao.FilmeDao;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,7 +14,6 @@ import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import org.example.Cinema.Model.CinemaData;
 import org.example.Cinema.Model.Filme;
 
 public class ControllerTelaCliente {
@@ -31,7 +31,8 @@ public class ControllerTelaCliente {
         @FXML
         public void initialize() {
 
-            lvFilmes.getItems().addAll(CinemaData.filmes);
+            FilmeDao dao = new FilmeDao();
+            lvFilmes.getItems().addAll(dao.findAll());
 
             spQuantidade.setValueFactory(
                     new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 10, 1)
@@ -54,14 +55,12 @@ public class ControllerTelaCliente {
 
             lblInfo.setText(
                     "Nome: " + filme.getNome() + "\n" +
-                            "Diretor: " + filme.getDiretor() + "\n" +
                             "Classificação: " + filme.getClassificacao() + "\n" +
                             "Gênero: " + filme.getGenero() + "\n" +
                             "Duração: " + filme.getDuracao() + "\n" +
                             "Preço: R$ " + filme.getPreco()
             );
 
-            cbSessoes.getItems().setAll(filme.getSessoes());
             cbSessoes.setValue(null);
 
             calcularTotal();
