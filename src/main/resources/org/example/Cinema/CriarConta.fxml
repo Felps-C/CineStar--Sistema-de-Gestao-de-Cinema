@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane accessibleRole="BUTTON" prefHeight="500.0" prefWidth="900.0" style="-fx-background-color: #7e15d0;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.Cinema.Controlador.ControllerLogin">
+    <children>
+        <Pane layoutX="-1.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="502.0" prefWidth="461.0" style="-fx-background-color: #FFFFFF;">
+            <children>
+
+                <PasswordField fx:id="txtSenha" layoutX="147.0" layoutY="156.0" promptText="Senha" />
+
+                <TextField fx:id="txtEmail" cache="true" layoutX="147.0" layoutY="113.0" nodeOrientation="LEFT_TO_RIGHT" promptText="exemple@gmail.com" />
+                <Label alignment="CENTER" layoutX="136.0" layoutY="49.0" text="Crie seu login" textFill="#c100ff">
+                    <font>
+                        <Font name="Times New Roman Italic" size="30.0" />
+                    </font>
+                </Label>
+                <Button layoutX="178.0" layoutY="214.0" mnemonicParsing="false" onAction="#CriarConta" prefHeight="25.0" prefWidth="86.0" text="Criar conta" />
+            <Label layoutX="51.0" layoutY="271.0" text="Selecione se você é um cliente, gerente ou vendedor!" textFill="#c100ff">
+               <font>
+                  <Font name="Times New Roman Italic" size="17.0" />
+               </font>
+            </Label>
+            <ListView layoutX="146.0" layoutY="308.0" prefHeight="91.0" prefWidth="149.0" />
+            </children></Pane>
+
+        <Label fx:id="lblErro" layoutX="100" layoutY="210" style="-fx-text-fill: red;" text="Email ou senha inválidos" visible="false" />
+        <Label alignment="CENTER" layoutX="494.0" layoutY="50.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="2.0" prefWidth="370.0" text="Bem vindo ao CineStar" textAlignment="CENTER" textFill="WHITE">
+            <font>
+                <Font name="Times New Roman Italic" size="30.0" />
+            </font>
+            <opaqueInsets>
+                <Insets />
+            </opaqueInsets></Label>
+      <Label alignment="CENTER" layoutX="521.0" layoutY="118.0" prefHeight="125.0" prefWidth="321.0" text="Se torne cliente do nosso cinema e se surpreenda com nossa qualidade e filmes incriveis." textAlignment="JUSTIFY" textFill="WHITE" textOverrun="CLIP" wrapText="true">
+         <font>
+            <Font name="Times New Roman Italic" size="25.0" />
+         </font>
+      </Label>
+
+    </children>
+
+</AnchorPane>

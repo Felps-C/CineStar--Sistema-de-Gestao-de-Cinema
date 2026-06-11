@@ -49,5 +49,11 @@ public class ControllerLogin {
         stage.setScene(new Scene(root));
         stage.show();
     }
+    public void CriarConta(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/org/example/Cinema/CriarConta.fxml"));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(root));
+        stage.show();
+    }
 }
 
