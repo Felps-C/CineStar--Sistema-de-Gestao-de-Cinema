@@ -2,7 +2,7 @@ package org.example.Cinema.Model;
 
 public class Produto {
 
-    private int Id;
+    private int Idlanche;
     private String nome;
     private int quantidade;
     private double valor;
@@ -16,9 +16,9 @@ public class Produto {
 
     }
 
-    public int getId() { return Id; }
+    public int getId() { return Idlanche; }
     public void setId(int Id) {
-        this.Id = Id;
+        this.Idlanche = Id;
     }
     public String getNome() { return nome; }
     public void setNome(String nome) {

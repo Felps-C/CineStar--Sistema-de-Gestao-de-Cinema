@@ -1,6 +1,7 @@
 package org.example.Cinema.Controlador;
 import java.io.IOException;
 
+import dao.FilmeDao;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -30,7 +31,8 @@ public class ControllerTelaCliente {
         @FXML
         public void initialize() {
 
-            lvFilmes.getItems().addAll(CinemaData.filmes);
+            FilmeDao dao = new FilmeDao();
+            lvFilmes.getItems().addAll(dao.findAll());
 
             spQuantidade.setValueFactory(
                     new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 10, 1)

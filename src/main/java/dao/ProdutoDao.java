@@ -59,7 +59,7 @@ public class ProdutoDao {
                         rs.getString("Validade")
                 );
                 // Vincula o ID recuperado do banco
-                produto.setId(rs.getInt("Id"));
+                produto.setId(rs.getInt("Idlanche"));
 
                 list.add(produto);
             }

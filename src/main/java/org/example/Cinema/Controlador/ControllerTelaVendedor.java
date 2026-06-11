@@ -1,5 +1,6 @@
 package org.example.Cinema.Controlador;
 
+import dao.ProdutoDao;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -24,7 +25,8 @@ public class ControllerTelaVendedor {
     @FXML
     public void initialize() {
 
-        lvProdutos.getItems().addAll(Estoque.produtos);
+        ProdutoDao produtoDao = new ProdutoDao();
+        lvProdutos.getItems().addAll(produtoDao.findAll());
 
         spQuantidade.setValueFactory(
                 new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 500, 0)
@@ -36,15 +38,18 @@ public class ControllerTelaVendedor {
     }
 
     public void atualizarEstoque() {
-
         if (produtoSelecionado == null) {
             mostrarMensagem("Selecione um produto!", "red");
             return;
         }
 
         produtoSelecionado.setQuantidade(spQuantidade.getValue());
-        lvProdutos.refresh();
 
+        // Atualiza no banco
+        ProdutoDao dao = new ProdutoDao();
+        dao.update(produtoSelecionado);
+
+        lvProdutos.refresh();
         mostrarMensagem("Estoque atualizado com sucesso!", "green");
     }
 

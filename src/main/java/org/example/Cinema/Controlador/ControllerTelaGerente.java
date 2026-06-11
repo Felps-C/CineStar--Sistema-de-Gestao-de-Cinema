@@ -1,5 +1,7 @@
 package org.example.Cinema.Controlador;
 
+import dao.FilmeDao;
+import dao.ProdutoDao;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -30,12 +32,15 @@ public class ControllerTelaGerente {
     @FXML
     public void initialize() {
 
-        lvFilmes.getItems().addAll(CinemaData.filmes);
+        FilmeDao dao = new FilmeDao();
+        lvFilmes.getItems().addAll(dao.findAll());
+
         lvFilmes.getSelectionModel().selectedItemProperty().addListener(
                 (obs, oldV, newV) -> carregarFilme(newV)
         );
 
-        lvProdutos.getItems().addAll(Estoque.produtos);
+        ProdutoDao produtoDao = new ProdutoDao();
+        lvProdutos.getItems().addAll(produtoDao.findAll());
         spQuantidade.setValueFactory(
                 new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 1000, 0)
         );
@@ -51,34 +56,38 @@ public class ControllerTelaGerente {
         filmeSelecionado = filme;
 
         txtNome.setText(filme.getNome());
-        txtDiretor.setText(filme.getDiretor());
         txtClassificacao.setText(filme.getClassificacao());
         txtGenero.setText(filme.getGenero());
         txtDuracao.setText(filme.getDuracao());
         txtPreco.setText(String.valueOf(filme.getPreco()));
-        txtSessoes.setText(String.join(",", filme.getSessoes()));
     }
 
     public void salvarFilme() {
-
         filmeSelecionado.setNome(txtNome.getText());
-        filmeSelecionado.setDiretor(txtDiretor.getText());
         filmeSelecionado.setClassificacao(txtClassificacao.getText());
         filmeSelecionado.setGenero(txtGenero.getText());
         filmeSelecionado.setDuracao(txtDuracao.getText());
         filmeSelecionado.setPreco(Double.parseDouble(txtPreco.getText()));
-        filmeSelecionado.setSessoes(List.of(txtSessoes.getText().split(",")));
+
+        // Atualiza no banco
+        FilmeDao dao = new FilmeDao();
+        dao.update(filmeSelecionado);
 
         lvFilmes.refresh();
     }
 
     public void reporEstoque() {
-
         if (produtoSelecionado == null) return;
 
         produtoSelecionado.setQuantidade(spQuantidade.getValue());
+
+        // Atualiza no banco
+        ProdutoDao dao = new ProdutoDao();
+        dao.update(produtoSelecionado);
+
         lvProdutos.refresh();
     }
+
     public void VoltarLogin(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/org/example/Cinema/Login.fxml"));
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

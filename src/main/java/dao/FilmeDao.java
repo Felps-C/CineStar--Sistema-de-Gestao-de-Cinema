@@ -13,13 +13,14 @@ public class FilmeDao {
         try {
             conn = DB.getConnection();
             ps = conn.prepareStatement(
-                    "INSERT INTO filme (Nome, Classificação, Gênero, Duração, Preco) VALUES (?, ?, ?, ?)",
+                    "INSERT INTO filme (Nome, Classificacao, Genero, Duracao, Preco) VALUES (?, ?, ?, ?)",
                     Statement.RETURN_GENERATED_KEYS
             );
             ps.setString(1, obj.getNome());
             ps.setString(2, obj.getClassificacao());
             ps.setString(3, obj.getGenero());
             ps.setString(4, obj.getDuracao());
+            ps.setDouble(5, obj.getPreco());
 
             int rowsAffected = ps.executeUpdate();
             if (rowsAffected > 0) {
@@ -55,13 +56,13 @@ public class FilmeDao {
                 // passamos os dados coletados do ResultSet diretamente nele:
                 Filme filme = new Filme(
                         rs.getString("Nome"),
-                        rs.getString("Classificação"),
-                        rs.getString("Gênero"),
-                        rs.getString("Duração"),
+                        rs.getString("Classificacao"),
+                        rs.getString("Genero"),
+                        rs.getString("Duracao"),
                         rs.getDouble("Preco")
                 );
                 // O ID é injetado logo em seguida via Setter
-                filme.setId(rs.getInt("Id"));
+                filme.setId(rs.getInt("Idfilme"));
 
                 list.add(filme);
             }
@@ -80,13 +81,14 @@ public class FilmeDao {
         try {
             conn = DB.getConnection();
             ps = conn.prepareStatement(
-                    "UPDATE filme SET Nome = ?, Classificacao = ?, Genero = ?, Duracao = ? WHERE Idfilme = ?"
+                    "UPDATE filme SET Nome = ?, Classificacao = ?, Genero = ?, Duracao = ?, Preco=? WHERE Idfilme = ?"
             );
             ps.setString(1, obj.getNome());
             ps.setString(2, obj.getClassificacao());
             ps.setString(3, obj.getGenero());
             ps.setString(4, obj.getDuracao());
-            ps.setInt(5, obj.getId()); // Filtro WHERE
+            ps.setDouble(5, obj.getPreco());
+            ps.setInt(6, obj.getId()); // Filtro WHERE
 
             ps.executeUpdate();
         } catch (SQLException e) {
