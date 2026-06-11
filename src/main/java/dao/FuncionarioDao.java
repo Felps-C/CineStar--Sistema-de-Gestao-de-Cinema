@@ -1,31 +1,36 @@
 package dao;
+
 import db.DB;
-import org.example.Cinema.Model.Filme;
+import org.example.Cinema.Model.Funcionario;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FilmeDao {
 
-    public void insert(Filme obj) {
+public class FuncionarioDao {
+
+    public void insert(Funcionario obj) {
         Connection conn = null;
         PreparedStatement ps = null;
         try {
             conn = DB.getConnection();
             ps = conn.prepareStatement(
-                    "INSERT INTO filme (Nome, Classificação, Gênero, Duração, Preco) VALUES (?, ?, ?, ?)",
+                    "INSERT INTO funcionario (Nome, Contato, Gênero, Cargo, Idade, Salario) VALUES (?, ?, ?, ?, ?, ?)",
                     Statement.RETURN_GENERATED_KEYS
             );
             ps.setString(1, obj.getNome());
-            ps.setString(2, obj.getClassificacao());
-            ps.setString(3, obj.getGenero());
-            ps.setString(4, obj.getDuracao());
+            ps.setString(2, obj.getContato());
+            ps.setString(3, obj.getGênero());
+            ps.setString(4, obj.getCargo());
+            ps.setInt(5, obj.getIdade());
+            ps.setDouble(6, obj.getSalario()); // Precisará do getSalario() no seu Model
 
             int rowsAffected = ps.executeUpdate();
             if (rowsAffected > 0) {
                 ResultSet rs = ps.getGeneratedKeys();
                 if (rs.next()) {
-                    // Atualiza o ID do objeto na memória com o ID gerado pelo Banco de Dados
+                    // Vincula o ID auto-incrementado gerado pelo banco ao objeto
                     obj.setId(rs.getInt(1));
                 }
                 DB.closeResultSet(rs);
@@ -33,37 +38,37 @@ public class FilmeDao {
         } catch (SQLException e) {
             throw new RuntimeException(e.getMessage());
         } finally {
-            // Mantendo a assinatura "closeStatment" exatamente igual à sua classe DB utilitária
             DB.closeStatment(ps);
         }
     }
 
-    public List<Filme> findAll() {
+    public List<Funcionario> findAll() {
         Connection conn = null;
         PreparedStatement st = null;
         ResultSet rs = null;
         try {
             conn = DB.getConnection();
-            String sql = "SELECT * FROM filme ORDER BY Idfilme";
+            String sql = "SELECT * FROM funcionario ORDER BY IdFuncionario";
 
             st = conn.prepareStatement(sql);
             rs = st.executeQuery();
 
-            List<Filme> list = new ArrayList<>();
+            List<Funcionario> list = new ArrayList<>();
             while (rs.next()) {
-                // Como sua classe Filme exige os parâmetros no construtor,
-                // passamos os dados coletados do ResultSet diretamente nele:
-                Filme filme = new Filme(
+                // Instancia respeitando a ordem exata do construtor:
+                // (nome, contato, genero, cargo, idade, salario)
+                Funcionario funcionario = new Funcionario(
                         rs.getString("Nome"),
-                        rs.getString("Classificação"),
-                        rs.getString("Gênero"),
-                        rs.getString("Duração"),
-                        rs.getDouble("Preco")
+                        rs.getString("Contato"),
+                        rs.getString("Genero"),
+                        rs.getString("Cargo"),
+                        rs.getInt("Idade"),
+                        rs.getDouble("Salario")
                 );
-                // O ID é injetado logo em seguida via Setter
-                filme.setId(rs.getInt("Id"));
+                // Injeta o ID recuperado via Setter
+                funcionario.setId(rs.getInt("Id"));
 
-                list.add(filme);
+                list.add(funcionario);
             }
             return list;
         } catch (SQLException e) {
@@ -74,19 +79,21 @@ public class FilmeDao {
         }
     }
 
-    public void update(Filme obj) {
+    public void update(Funcionario obj) {
         Connection conn = null;
         PreparedStatement ps = null;
         try {
             conn = DB.getConnection();
             ps = conn.prepareStatement(
-                    "UPDATE filme SET Nome = ?, Classificacao = ?, Genero = ?, Duracao = ? WHERE Idfilme = ?"
+                    "UPDATE funcionario SET Nome = ?, Contato = ?, Genero = ?, Cargo = ?, Idade = ?, Salario = ? WHERE IdFuncionario = ?"
             );
             ps.setString(1, obj.getNome());
-            ps.setString(2, obj.getClassificacao());
-            ps.setString(3, obj.getGenero());
-            ps.setString(4, obj.getDuracao());
-            ps.setInt(5, obj.getId()); // Filtro WHERE
+            ps.setString(2, obj.getContato());
+            ps.setString(3, obj.getGênero());
+            ps.setString(4, obj.getCargo());
+            ps.setInt(5, obj.getIdade());
+            ps.setDouble(6, obj.getSalario());
+            ps.setInt(7, obj.getId()); // Filtro do WHERE
 
             ps.executeUpdate();
         } catch (SQLException e) {
@@ -101,7 +108,7 @@ public class FilmeDao {
         PreparedStatement ps = null;
         try {
             conn = DB.getConnection();
-            ps = conn.prepareStatement("DELETE FROM filme WHERE Idfilme = ?");
+            ps = conn.prepareStatement("DELETE FROM funcionario WHERE IdFunconario = ?");
             ps.setInt(1, id);
             ps.executeUpdate();
         } catch (SQLException e) {

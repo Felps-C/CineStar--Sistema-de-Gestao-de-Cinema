@@ -13,7 +13,6 @@ import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import org.example.Cinema.Model.CinemaData;
 import org.example.Cinema.Model.Filme;
 
 public class ControllerTelaCliente {
@@ -54,14 +53,12 @@ public class ControllerTelaCliente {
 
             lblInfo.setText(
                     "Nome: " + filme.getNome() + "\n" +
-                            "Diretor: " + filme.getDiretor() + "\n" +
                             "Classificação: " + filme.getClassificacao() + "\n" +
                             "Gênero: " + filme.getGenero() + "\n" +
                             "Duração: " + filme.getDuracao() + "\n" +
                             "Preço: R$ " + filme.getPreco()
             );
 
-            cbSessoes.getItems().setAll(filme.getSessoes());
             cbSessoes.setValue(null);
 
             calcularTotal();
