@@ -9,7 +9,7 @@ import java.sql.ResultSet;
 public class UsuarioDao {
 
     public Usuario autenticar(String email, String senha) throws Exception {
-        String sql = "SELECT * FROM usuarios WHERE email = ? AND senha = ?";
+        String sql = "SELECT * FROM usuarios WHERE Gmail = ? AND Senha = ?";
 
         // Pegamos a conexão da sua classe DB
         Connection conn = DB.getConnection();
@@ -23,9 +23,9 @@ public class UsuarioDao {
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     return new Usuario(
-                            rs.getString("email"),
-                            rs.getString("senha"),
-                            rs.getString("tipo")
+                            rs.getString("Gmail"),
+                            rs.getString("Senha"),
+                            rs.getString("Tipo")
                     );
                 }
             }
@@ -34,7 +34,7 @@ public class UsuarioDao {
     }
 
     public void cadastrar(String email, String senha, String tipo) throws Exception {
-        String sql = "INSERT INTO usuarios (email, senha, tipo) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO usuarios (Gmail, Senha, Tipo) VALUES (?, ?, ?)";
 
         // Pegamos a conexão da sua classe DB
         Connection conn = DB.getConnection();
