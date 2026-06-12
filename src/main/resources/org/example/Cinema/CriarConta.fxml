@@ -18,7 +18,7 @@
                         <Font name="Times New Roman Italic" size="30.0" />
                     </font>
                 </Label>
-                <Button layoutX="178.0" layoutY="214.0" mnemonicParsing="false" onAction="#criarConta" prefHeight="25.0" prefWidth="86.0" text="Criar conta" />
+                <Button layoutX="178.0" layoutY="425.0" mnemonicParsing="false" onAction="#criarConta" prefHeight="25.0" prefWidth="86.0" text="Criar conta" />
             <Label layoutX="51.0" layoutY="271.0" text="Selecione se você é um cliente, gerente ou vendedor!" textFill="#c100ff">
                <font>
                   <Font name="Times New Roman Italic" size="17.0" />

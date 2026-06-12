@@ -9,7 +9,6 @@ public class Clientes {
         this.CPF = CPF;
     }
 
-
     public String getNome() {
         return nome;
     }
