@@ -33,7 +33,7 @@ public class ClienteDao {
         ResultSet rs = null;
         try {
             conn = DB.getConnection();
-            String sql = "SELECT * FROM cliente ORDER BY Nome";
+            String sql = "SELECT * FROM clientes ORDER BY Nome";
 
             st = conn.prepareStatement(sql);
             rs = st.executeQuery();

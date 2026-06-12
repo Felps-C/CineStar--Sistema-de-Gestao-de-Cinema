@@ -1,14 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.Spinner?>
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<TabPane xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.Cinema.Controlador.ControllerTelaGerente">
+<TabPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.Cinema.Controlador.ControllerTelaGerente">
 
     <!-- ABA FILMES -->
     <tabs>
@@ -18,15 +13,16 @@
                 <ListView fx:id="lvFilmes" layoutX="147.0" layoutY="10.0" prefHeight="200" prefWidth="180" />
 
                 <TextField fx:id="txtNome" layoutX="360.0" layoutY="10.0" promptText="Nome" />
-                <TextField fx:id="txtDiretor" layoutX="360.0" layoutY="49.0" promptText="Diretor" />
-                <TextField fx:id="txtClassificacao" layoutX="360.0" layoutY="90.0" promptText="Classificação" />
-                <TextField fx:id="txtGenero" layoutX="360.0" layoutY="130.0" promptText="Gênero" />
-                <TextField fx:id="txtDuracao" layoutX="360.0" layoutY="169.0" promptText="Duração" />
-                <TextField fx:id="txtPreco" layoutX="360.0" layoutY="210.0" promptText="Preço" />
-                <TextField fx:id="txtSessoes" layoutX="360.0" layoutY="250.0" promptText="Sessões" />
+                <TextField fx:id="txtClassificacao" layoutX="360.0" layoutY="45.0" promptText="Classificação" />
+                <TextField fx:id="txtGenero" layoutX="360.0" layoutY="84.0" promptText="Gênero" />
+                <TextField fx:id="txtDuracao" layoutX="360.0" layoutY="122.0" promptText="Duração" />
+                <TextField fx:id="txtPreco" layoutX="360.0" layoutY="160.0" promptText="Preço" />
+                <TextField fx:id="txtSessoes" layoutX="360.0" layoutY="197.0" promptText="Sessões" />
 
-                <Button layoutX="360.0" layoutY="290.0" onAction="#salvarFilme" text="Salvar Filme" />
+                <Button layoutX="360.0" layoutY="237.0" onAction="#salvarFilme" text="Salvar Filme" />
             <Button fx:id="Voltar" layoutX="14.0" layoutY="10.0" mnemonicParsing="false" onAction="#VoltarLogin" text="Login" />
+            <Button layoutX="121.0" layoutY="263.0" mnemonicParsing="false" onAction="#adicionarFilme" text="Adicionar filme" />
+            <Button layoutX="297.0" layoutY="289.0" mnemonicParsing="false" onAction="#removerFilme" text="Remover filme" />
 
             </AnchorPane>
         </Tab>
@@ -40,6 +36,8 @@
                 <Spinner fx:id="spQuantidade" layoutX="380.0" layoutY="96.0" />
 
                 <Button layoutX="380.0" layoutY="150.0" onAction="#reporEstoque" text="Repor Estoque" />
+            <Button layoutX="504.0" layoutY="150.0" mnemonicParsing="false" onAction="#removerEstoque" text="Remover do estoque" />
+            <Button layoutX="380.0" layoutY="200.0" mnemonicParsing="false" onAction="#adicionarEstoque" text="Adicionar no estoque" />
 
             </AnchorPane>
         </Tab>

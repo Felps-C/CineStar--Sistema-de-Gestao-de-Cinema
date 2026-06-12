@@ -88,6 +88,22 @@ public class ControllerTelaGerente {
         lvProdutos.refresh();
     }
 
+    public void adicionarEstoque(ActionEvent event) throws IOException{
+
+    }
+
+    public void removerEstoque(ActionEvent event) throws IOException{
+
+    }
+
+    public void adicionarFilme(ActionEvent event) throws IOException{
+
+    }
+
+    public void removerFilme(ActionEvent event) throws IOException{
+
+    }
+
     public void VoltarLogin(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/org/example/Cinema/Login.fxml"));
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
