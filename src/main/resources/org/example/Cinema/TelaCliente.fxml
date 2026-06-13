@@ -1,30 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.Spinner?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="500.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.Cinema.Controlador.ControllerTelaCliente">
+<AnchorPane prefHeight="500.0" prefWidth="900.0" style="-fx-background-color: #f8f9fa;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.Cinema.Controlador.ControllerTelaCliente">
+    <children>
 
-        <children>
+        <Button fx:id="Voltar" layoutX="20.0" layoutY="20.0" mnemonicParsing="false" onAction="#VoltarLogin" prefHeight="30.0" prefWidth="80.0" style="-fx-background-color: transparent; -fx-border-color: #7e15d0; -fx-border-radius: 20; -fx-text-fill: #7e15d0; -fx-font-weight: bold; -fx-cursor: hand;" text="&lt; Sair" />
+        <Label layoutX="120.0" layoutY="22.0" text="Ingressos CineStar" textFill="#121212">
+            <font>
+                <Font name="System Bold" size="20.0" />
+            </font>
+        </Label>
 
-            <ListView fx:id="lvFilmes" layoutX="206.0" layoutY="29.0" prefHeight="150" prefWidth="180" />
+        <Label layoutX="30.0" layoutY="75.0" text="Filmes em Cartaz" textFill="#7e15d0">
+            <font>
+                <Font name="System Bold" size="16.0" />
+            </font>
+        </Label>
+        <ListView fx:id="lvFilmes" layoutX="30.0" layoutY="105.0" prefHeight="365.0" prefWidth="260.0" style="-fx-border-color: #7e15d0; -fx-border-width: 1; -fx-border-radius: 5; -fx-background-radius: 5; -fx-font-size: 14px;" />
 
-            <Label fx:id="lblInfo" layoutX="410.0" layoutY="20.0" wrapText="true" />
+        <Pane layoutX="320.0" layoutY="105.0" prefHeight="365.0" prefWidth="540.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 15; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 15, 0, 0, 0);">
+            <children>
+                <Label layoutX="30.0" layoutY="20.0" text="Detalhes da Sessão" textFill="#7e15d0">
+                    <font>
+                        <Font name="System Bold" size="18.0" />
+                    </font>
+                </Label>
 
-            <ComboBox fx:id="cbSessoes" layoutX="411.0" layoutY="187.0" promptText="Sessão" />
+                <Label fx:id="lblInfo" alignment="TOP_LEFT" layoutX="30.0" layoutY="60.0" prefHeight="90.0" prefWidth="480.0" text="Selecione um filme ao lado para ver os detalhes..." textFill="#333333" wrapText="true">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </Label>
 
-            <Spinner fx:id="spQuantidade" layoutX="411.0" layoutY="224.0" />
+                <Label layoutX="30.0" layoutY="160.0" text="Escolha o Horário:" textFill="#121212">
+                    <font>
+                        <Font name="System Bold" size="12.0" />
+                    </font>
+                </Label>
+                <ComboBox fx:id="cbSessoes" layoutX="30.0" layoutY="180.0" prefHeight="35.0" prefWidth="220.0" promptText="Selecione a sessão" style="-fx-background-color: transparent; -fx-border-color: #7e15d0; -fx-border-width: 0 0 2px 0;" />
 
-            <Label fx:id="lblTotal" layoutX="411.0" layoutY="259.0" text="Total: R$ 0,00" />
+                <Label layoutX="280.0" layoutY="160.0" text="Quantidade de Ingressos:" textFill="#121212">
+                    <font>
+                        <Font name="System Bold" size="12.0" />
+                    </font>
+                </Label>
+                <Spinner fx:id="spQuantidade" layoutX="280.0" layoutY="185.0" prefHeight="30.0" prefWidth="120.0" style="-fx-border-color: #7e15d0;" />
 
-            <Button layoutX="411.0" layoutY="283.0" onAction="#comprar" text="Comprar" />
+                <Label fx:id="lblTotal" layoutX="30.0" layoutY="260.0" prefWidth="260.0" text="Total: R$ 0,00" textFill="#7e15d0">
+                    <font>
+                        <Font name="System Bold" size="24.0" />
+                    </font>
+                </Label>
 
-            <Label fx:id="lblMensagem" layoutX="410.0" layoutY="320.0" visible="false" />
-      <Button fx:id="Voltar" layoutX="30.0" layoutY="25.0" mnemonicParsing="false" onAction="#VoltarLogin" text="Login" />
+                <Button layoutX="330.0" layoutY="250.0" mnemonicParsing="false" onAction="#comprar" prefHeight="50.0" prefWidth="180.0" style="-fx-background-color: #7e15d0; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 25; -fx-cursor: hand; -fx-font-size: 16px;" text="Confirmar Compra" />
 
-        </children>
-    </AnchorPane>
+                <Label fx:id="lblMensagem" alignment="CENTER" layoutX="30.0" layoutY="325.0" prefWidth="480.0" text="Mensagem de status" textFill="#121212" visible="false">
+                    <font>
+                        <Font name="System Bold" size="14.0" />
+                    </font>
+                </Label>
+            </children>
+        </Pane>
+
+    </children>
+</AnchorPane>

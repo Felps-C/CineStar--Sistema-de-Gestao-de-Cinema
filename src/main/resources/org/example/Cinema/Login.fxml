@@ -1,42 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane accessibleRole="BUTTON" prefHeight="500.0" prefWidth="900.0" style="-fx-background-color: #7e15d0;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.Cinema.Controlador.ControllerLogin">
+<AnchorPane prefHeight="500.0" prefWidth="900.0" style="-fx-background-color: #121212;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.Cinema.Controlador.ControllerLogin">
    <children>
-      <Pane layoutX="438.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="502.0" prefWidth="461.0" style="-fx-background-color: #FFFFFF;">
-         <children>
-      
-            <PasswordField fx:id="txtSenha" layoutX="156.0" layoutY="156.0" promptText="Senha" />
-      
-            <TextField fx:id="txtEmail" cache="true" layoutX="156.0" layoutY="116.0" nodeOrientation="LEFT_TO_RIGHT" promptText="exemple@gmail.com" />
-      
-            <Button layoutX="156.0" layoutY="197.0" onAction="#fazerLogin" style="-fx-background-color: #ccc;" text="Entrar" />
-            <Label layoutX="137.0" layoutY="51.0" text="Faça seu Login" textFill="#c100ff">
-               <font>
-                  <Font name="Times New Roman Italic" size="30.0" />
-               </font>
-            </Label>
-            <Button layoutX="203.0" layoutY="309.0" mnemonicParsing="false" onAction="#CriarConta" prefHeight="25.0" prefWidth="55.0" text="Criar" />
-            <Label layoutX="104.0" layoutY="261.0" text="Caso não tenha um login crie um!" textFill="#c100ff">
-               <font>
-                  <Font name="Times New Roman Italic" size="19.0" />
-               </font>
-            </Label>
-         </children></Pane>
 
-      <Label fx:id="lblErro" layoutX="100" layoutY="210" style="-fx-text-fill: red;" text="Email ou senha inválidos" visible="false" />
-      <Label alignment="CENTER" layoutX="35.0" layoutY="49.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="2.0" prefWidth="370.0" text="Bem vindo ao CineStar" textAlignment="CENTER" textFill="WHITE">
-         <font>
-            <Font name="Times New Roman Italic" size="30.0" />
-         </font>
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets></Label>
+      <AnchorPane prefHeight="500.0" prefWidth="450.0" style="-fx-background-color: #7e15d0;">
+         <children>
+            <Label alignment="CENTER" layoutX="40.0" layoutY="180.0" prefWidth="370.0" text="Bem-vindo ao CineStar" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="32.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" layoutX="50.0" layoutY="240.0" prefHeight="60.0" prefWidth="350.0" text="O melhor cinema de toda a região." textAlignment="CENTER" textFill="WHITE" wrapText="true">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+
+      <Pane layoutX="450.0" prefHeight="500.0" prefWidth="450.0" style="-fx-background-color: #FFFFFF; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 15, 0, 0, 0);">
+         <children>
+            <Label alignment="CENTER" layoutX="75.0" layoutY="60.0" prefWidth="300.0" text="Faça seu Login" textFill="#7e15d0">
+               <font>
+                  <Font name="System Bold" size="28.0" />
+               </font>
+            </Label>
+
+            <TextField fx:id="txtEmail" layoutX="75.0" layoutY="150.0" prefHeight="35.0" prefWidth="300.0" promptText="exemplo@gmail.com" style="-fx-background-color: transparent; -fx-border-color: #7e15d0; -fx-border-width: 0 0 2px 0; -fx-font-size: 14px;" />
+            <PasswordField fx:id="txtSenha" layoutX="75.0" layoutY="210.0" prefHeight="35.0" prefWidth="300.0" promptText="Senha" style="-fx-background-color: transparent; -fx-border-color: #7e15d0; -fx-border-width: 0 0 2px 0; -fx-font-size: 14px;" />
+
+            <Label fx:id="lblErro" alignment="CENTER" layoutX="75.0" layoutY="260.0" prefWidth="300.0" style="-fx-text-fill: #d11a2a;" text="Email ou senha inválidos" visible="false">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+
+            <Button layoutX="75.0" layoutY="300.0" mnemonicParsing="false" onAction="#fazerLogin" prefHeight="45.0" prefWidth="300.0" style="-fx-background-color: #7e15d0; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 20; -fx-cursor: hand; -fx-font-size: 16px;" text="Entrar" />
+
+            <Label alignment="CENTER" layoutX="75.0" layoutY="380.0" prefWidth="300.0" text="Ainda não tem um login?" textFill="#7e15d0">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+
+            <Button layoutX="150.0" layoutY="410.0" mnemonicParsing="false" onAction="#CriarConta" prefHeight="35.0" prefWidth="150.0" style="-fx-background-color: transparent; -fx-border-color: #7e15d0; -fx-border-radius: 20; -fx-text-fill: #7e15d0; -fx-font-weight: bold; -fx-cursor: hand;" text="Criar Conta" />
+         </children>
+      </Pane>
 
    </children>
-
 </AnchorPane>

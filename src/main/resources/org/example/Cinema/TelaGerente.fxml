@@ -2,47 +2,90 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<TabPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.Cinema.Controlador.ControllerTelaGerente">
+<TabPane style="-fx-background-color: #1a0029;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.Cinema.Controlador.ControllerTelaGerente">
 
     <!-- ABA FILMES -->
     <tabs>
-        <Tab text="Filmes">
-            <AnchorPane prefHeight="500.0" prefWidth="900.0">
+        <Tab style="-fx-background-color: #7e15d0; -fx-text-base-color: white;" text="Gerenciar Filmes">
+            <AnchorPane prefHeight="550.0" prefWidth="900.0" style="-fx-background-color: #2a0b45;">
 
-                <ListView fx:id="lvFilmes" layoutX="147.0" layoutY="10.0" prefHeight="200" prefWidth="180" />
+                <Button fx:id="Voltar" layoutX="20.0" layoutY="15.0" mnemonicParsing="false" onAction="#VoltarLogin" style="-fx-background-color: transparent; -fx-border-color: #c100ff; -fx-border-radius: 5; -fx-text-fill: white; -fx-cursor: hand;" text="&lt; Sair" />
 
-                <TextField fx:id="txtNome" layoutX="360.0" layoutY="10.0" promptText="Nome" />
-                <TextField fx:id="txtClassificacao" layoutX="360.0" layoutY="45.0" promptText="Classificação" />
-                <TextField fx:id="txtGenero" layoutX="360.0" layoutY="84.0" promptText="Gênero" />
-                <TextField fx:id="txtDuracao" layoutX="360.0" layoutY="122.0" promptText="Duração" />
-                <TextField fx:id="txtPreco" layoutX="360.0" layoutY="160.0" promptText="Preço" />
-                <TextField fx:id="txtSessoes" layoutX="360.0" layoutY="197.0" promptText="Sessões" />
+                <Label layoutX="100.0" layoutY="16.0" text="Catálogo de Filmes" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="18.0" />
+                    </font>
+                </Label>
 
-                <Button layoutX="360.0" layoutY="237.0" onAction="#salvarFilme" text="Salvar Filme" />
-                <Button layoutX="460.0" layoutY="290.0" onAction="#adicionarFilme" text="Adicionar Filme" />
-                <Button fx:id="Voltar" layoutX="14.0" layoutY="10.0" mnemonicParsing="false" onAction="#VoltarLogin" text="Login" />
-            <Button layoutX="121.0" layoutY="263.0" mnemonicParsing="false" onAction="#adicionarFilme" text="Adicionar filme" />
-            <Button layoutX="297.0" layoutY="289.0" mnemonicParsing="false" onAction="#removerFilme" text="Remover filme" />
+                <!-- ListView um pouco mais larga -->
+                <ListView fx:id="lvFilmes" layoutX="20.0" layoutY="60.0" prefHeight="430.0" prefWidth="300.0" style="-fx-border-color: #7e15d0; -fx-border-width: 2; -fx-border-radius: 5; -fx-background-radius: 5;" />
 
+                <!-- CARD BRANCO DO FORMULÁRIO -->
+                <Pane layoutX="340.0" layoutY="60.0" prefHeight="430.0" prefWidth="540.0" style="-fx-background-color: white; -fx-background-radius: 15; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 10, 0, 0, 0);">
+                    <children>
+                        <Label layoutX="30.0" layoutY="20.0" text="Detalhes do Filme Selecionado" textFill="#7e15d0">
+                            <font>
+                                <Font name="System Bold" size="18.0" />
+                            </font>
+                        </Label>
+
+                        <TextField fx:id="txtNomeF" layoutX="30.0" layoutY="70.0" prefWidth="480.0" promptText="Nome do Filme" style="-fx-background-color: transparent; -fx-border-color: #7e15d0; -fx-border-width: 0 0 2px 0;" />
+
+                        <TextField fx:id="txtClassificacao" layoutX="30.0" layoutY="130.0" prefWidth="230.0" promptText="Classificação" style="-fx-background-color: transparent; -fx-border-color: #7e15d0; -fx-border-width: 0 0 2px 0;" />
+                        <TextField fx:id="txtGenero" layoutX="280.0" layoutY="130.0" prefWidth="230.0" promptText="Gênero" style="-fx-background-color: transparent; -fx-border-color: #7e15d0; -fx-border-width: 0 0 2px 0;" />
+
+                        <TextField fx:id="txtDuracao" layoutX="30.0" layoutY="190.0" prefWidth="230.0" promptText="Duração (min)" style="-fx-background-color: transparent; -fx-border-color: #7e15d0; -fx-border-width: 0 0 2px 0;" />
+                        <TextField fx:id="txtPreco" layoutX="280.0" layoutY="190.0" prefWidth="230.0" promptText="Preço do Ingresso (R$)" style="-fx-background-color: transparent; -fx-border-color: #7e15d0; -fx-border-width: 0 0 2px 0;" />
+
+                        <TextField fx:id="txtSessoes" layoutX="30.0" layoutY="250.0" prefWidth="480.0" promptText="Horários de Sessões" style="-fx-background-color: transparent; -fx-border-color: #7e15d0; -fx-border-width: 0 0 2px 0;" />
+
+                        <Button layoutX="30.0" layoutY="350.0" mnemonicParsing="false" onAction="#adicionarFilme" prefHeight="35.0" prefWidth="140.0" style="-fx-background-color: #7e15d0; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 20; -fx-cursor: hand;" text="Adicionar Novo" />
+                        <Button layoutX="200.0" layoutY="350.0" mnemonicParsing="false" onAction="#salvarFilme" prefHeight="35.0" prefWidth="140.0" style="-fx-background-color: #2a0b45; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 20; -fx-cursor: hand;" text="Salvar Alterações" />
+                        <Button layoutX="370.0" layoutY="350.0" mnemonicParsing="false" onAction="#removerFilme" prefHeight="35.0" prefWidth="140.0" style="-fx-background-color: #d11a2a; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 20; -fx-cursor: hand;" text="Remover Filme" />
+                    </children>
+                </Pane>
             </AnchorPane>
         </Tab>
 
         <!-- ABA ESTOQUE -->
-        <Tab text="Estoque">
-            <AnchorPane>
+        <Tab style="-fx-background-color: #7e15d0; -fx-text-base-color: white;" text="Estoque da Bomboniere">
+            <AnchorPane prefHeight="550.0" prefWidth="900.0" style="-fx-background-color: #2a0b45;">
 
-                <ListView fx:id="lvProdutos" layoutX="169.0" layoutY="50.0" prefHeight="200" prefWidth="200" />
-                <TextField fx:id="txtQuantidade" layoutX="360.0" layoutY="45.0" promptText="Quantidade" />
-                <TextField fx:id="txtValidade" layoutX="360.0" layoutY="84.0" promptText="Validade" />
-                <TextField fx:id="txtValor" layoutX="360.0" layoutY="160.0" promptText="Valor" />
+                <Label layoutX="20.0" layoutY="20.0" text="Gestão de Produtos" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="18.0" />
+                    </font>
+                </Label>
 
-                <Spinner fx:id="spQuantidade" layoutX="380.0" layoutY="96.0" />
+                <ListView fx:id="lvProdutos" layoutX="20.0" layoutY="60.0" prefHeight="430.0" prefWidth="300.0" style="-fx-border-color: #7e15d0; -fx-border-width: 2; -fx-border-radius: 5; -fx-background-radius: 5;" />
 
-                <Button layoutX="380.0" layoutY="150.0" onAction="#reporEstoque" text="Repor Estoque" />
-            <Button layoutX="504.0" layoutY="150.0" mnemonicParsing="false" onAction="#removerEstoque" text="Remover do estoque" />
-            <Button layoutX="380.0" layoutY="200.0" mnemonicParsing="false" onAction="#adicionarEstoque" text="Adicionar no estoque" />
+                <Pane layoutX="340.0" layoutY="60.0" prefHeight="430.0" prefWidth="540.0" style="-fx-background-color: white; -fx-background-radius: 15; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 10, 0, 0, 0);">
+                    <children>
+                        <Label layoutX="30.0" layoutY="20.0" text="Detalhes do Produto" textFill="#7e15d0">
+                            <font>
+                                <Font name="System Bold" size="18.0" />
+                            </font>
+                        </Label>
 
+                        <TextField fx:id="txtNomeP" layoutX="30.0" layoutY="70.0" prefWidth="480.0" promptText="Nome do Produto" style="-fx-background-color: transparent; -fx-border-color: #7e15d0; -fx-border-width: 0 0 2px 0;" />
+
+                        <TextField fx:id="txtQuantidade" layoutX="30.0" layoutY="130.0" prefWidth="230.0" promptText="Quantidade em Estoque" style="-fx-background-color: transparent; -fx-border-color: #7e15d0; -fx-border-width: 0 0 2px 0;" />
+                        <TextField fx:id="txtValidade" layoutX="280.0" layoutY="130.0" prefWidth="230.0" promptText="Data de Validade" style="-fx-background-color: transparent; -fx-border-color: #7e15d0; -fx-border-width: 0 0 2px 0;" />
+
+                        <TextField fx:id="txtValor" layoutX="30.0" layoutY="190.0" prefWidth="230.0" promptText="Valor Unitário (R$)" style="-fx-background-color: transparent; -fx-border-color: #7e15d0; -fx-border-width: 0 0 2px 0;" />
+
+                        <Label layoutX="280.0" layoutY="200.0" text="Alterar Qtd:" textFill="#7e15d0">
+                            <font><Font name="System Bold" size="12.0" /></font>
+                        </Label>
+                        <Spinner fx:id="spQuantidade" layoutX="360.0" layoutY="195.0" prefWidth="150.0" style="-fx-border-color: #7e15d0;" />
+
+                        <Button layoutX="30.0" layoutY="350.0" mnemonicParsing="false" onAction="#adicionarEstoque" prefHeight="35.0" prefWidth="140.0" style="-fx-background-color: #7e15d0; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 20; -fx-cursor: hand;" text="Adicionar Novo" />
+                        <Button layoutX="200.0" layoutY="350.0" mnemonicParsing="false" onAction="#reporEstoque" prefHeight="35.0" prefWidth="140.0" style="-fx-background-color: #2a0b45; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 20; -fx-cursor: hand;" text="Atualizar Estoque" />
+                        <Button layoutX="370.0" layoutY="350.0" mnemonicParsing="false" onAction="#removerEstoque" prefHeight="35.0" prefWidth="140.0" style="-fx-background-color: #d11a2a; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 20; -fx-cursor: hand;" text="Remover Produto" />
+                    </children>
+                </Pane>
             </AnchorPane>
         </Tab>
     </tabs>

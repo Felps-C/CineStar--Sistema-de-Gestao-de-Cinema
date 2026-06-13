@@ -10,18 +10,16 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-//import jdk.javadoc.internal.doclets.toolkit.Resources;
 import org.example.Cinema.Model.Filme;
 import org.example.Cinema.Model.Produto;
 
 import java.io.IOException;
-import java.util.List;
 
 public class ControllerTelaGerente {
 
     @FXML private Button Voltar;
     @FXML private ListView<Filme> lvFilmes;
-    @FXML private TextField txtNome, txtClassificacao, txtGenero, txtDuracao, txtPreco, txtValidade, txtValor;
+    @FXML private TextField txtNomeF, txtNomeP, txtClassificacao, txtGenero, txtDuracao, txtPreco, txtValidade, txtValor;
     @FXML private TextField txtQuantidade;
 
     private Filme filmeSelecionado;
@@ -43,12 +41,13 @@ public class ControllerTelaGerente {
 
         ProdutoDao produtoDao = new ProdutoDao();
         lvProdutos.getItems().addAll(produtoDao.findAll());
+
         spQuantidade.setValueFactory(
                 new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 1000, 0)
         );
 
         lvProdutos.getSelectionModel().selectedItemProperty().addListener(
-                (obs, oldV, newV) -> produtoSelecionado = newV
+                (obs, oldV, newV) -> carregarEstoque(newV)
         );
     }
 
@@ -57,7 +56,7 @@ public class ControllerTelaGerente {
 
         filmeSelecionado = filme;
 
-        txtNome.setText(filme.getNome());
+        txtNomeF.setText(filme.getNome());
         txtClassificacao.setText(filme.getClassificacao());
         txtGenero.setText(filme.getGenero());
         txtDuracao.setText(filme.getDuracao());
@@ -65,17 +64,29 @@ public class ControllerTelaGerente {
     }
 
     public void salvarFilme() {
-        filmeSelecionado.setNome(txtNome.getText());
+        filmeSelecionado.setNome(txtNomeF.getText());
         filmeSelecionado.setClassificacao(txtClassificacao.getText());
         filmeSelecionado.setGenero(txtGenero.getText());
         filmeSelecionado.setDuracao(txtDuracao.getText());
         filmeSelecionado.setPreco(Double.parseDouble(txtPreco.getText()));
 
-        // Atualiza no banco
         FilmeDao dao = new FilmeDao();
         dao.update(filmeSelecionado);
 
         lvFilmes.refresh();
+    }
+
+    private void carregarEstoque(Produto produto) {
+        if (produto == null) return;
+
+        produtoSelecionado = produto;
+
+        txtNomeP.setText(produto.getNome());
+        txtQuantidade.setText(String.valueOf(produto.getQuantidade()));
+        txtValor.setText(String.valueOf(produto.getValor()));
+        txtValidade.setText(produto.getValidade());
+
+        spQuantidade.getValueFactory().setValue(produto.getQuantidade());
     }
 
     public void reporEstoque() {
@@ -83,16 +94,15 @@ public class ControllerTelaGerente {
 
         produtoSelecionado.setQuantidade(spQuantidade.getValue());
 
-        // Atualiza no banco
         ProdutoDao dao = new ProdutoDao();
         dao.update(produtoSelecionado);
 
         lvProdutos.refresh();
     }
 
-    public void adicionarEstoque(ActionEvent event) throws IOException{
+    public void adicionarEstoque(ActionEvent event) throws IOException {
         Produto novo = new Produto(
-                txtNome.getText(),
+                txtNomeP.getText(),
                 Integer.parseInt(txtQuantidade.getText()),
                 Double.parseDouble(txtValor.getText()),
                 txtValidade.getText()
@@ -105,7 +115,7 @@ public class ControllerTelaGerente {
         lvProdutos.refresh();
     }
 
-    public void removerEstoque(ActionEvent event) throws IOException{
+    public void removerEstoque(ActionEvent event) throws IOException {
         Produto selecionado = lvProdutos.getSelectionModel().getSelectedItem();
 
         if (selecionado != null) {
@@ -120,7 +130,7 @@ public class ControllerTelaGerente {
 
     public void adicionarFilme() {
         Filme novo = new Filme(
-                txtNome.getText(),
+                txtNomeF.getText(),
                 txtClassificacao.getText(),
                 txtGenero.getText(),
                 txtDuracao.getText(),
@@ -132,7 +142,7 @@ public class ControllerTelaGerente {
         lvFilmes.refresh();
     }
 
-    public void removerFilme(ActionEvent event) throws IOException{
+    public void removerFilme(ActionEvent event) throws IOException {
         Filme selecionado = lvFilmes.getSelectionModel().getSelectedItem();
 
         if (selecionado != null) {
@@ -141,7 +151,7 @@ public class ControllerTelaGerente {
             lvFilmes.getItems().remove(selecionado);
             lvFilmes.refresh();
         } else {
-            System.out.println("Nenhum selecionado selecionado para remover!");
+            System.out.println("Nenhum filme selecionado para remover!");
         }
     }
 
