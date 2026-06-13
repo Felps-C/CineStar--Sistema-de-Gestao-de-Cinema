@@ -2,11 +2,11 @@ package org.example.Cinema.Model;
 
 public class Clientes {
     private String nome;
-    private String CPF;
+    private int Id;
 
     public Clientes(String nome,String CPF) {
         this.nome = nome;
-        this.CPF = CPF;
+        this.Id = Id;
     }
 
     public String getNome() {
@@ -17,12 +17,12 @@ public class Clientes {
         this.nome = nome;
     }
 
-    public String getCPF() {
-        return CPF;
+    public int getID() {
+        return Id;
     }
 
-    public void setCPF(String CPF) {
-        this.CPF = CPF;
+    public void setID(int Id) {
+        this.Id = Id;
     }
 
     @Override

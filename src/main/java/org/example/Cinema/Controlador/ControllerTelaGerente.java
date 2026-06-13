@@ -10,6 +10,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+//import jdk.javadoc.internal.doclets.toolkit.Resources;
 import org.example.Cinema.Model.Filme;
 import org.example.Cinema.Model.Produto;
 
@@ -20,7 +21,8 @@ public class ControllerTelaGerente {
 
     @FXML private Button Voltar;
     @FXML private ListView<Filme> lvFilmes;
-    @FXML private TextField txtNome, txtDiretor, txtClassificacao, txtGenero, txtDuracao, txtPreco, txtSessoes;
+    @FXML private TextField txtNome, txtClassificacao, txtGenero, txtDuracao, txtPreco, txtValidade, txtValor;
+    @FXML private TextField txtQuantidade;
 
     private Filme filmeSelecionado;
 
@@ -89,19 +91,58 @@ public class ControllerTelaGerente {
     }
 
     public void adicionarEstoque(ActionEvent event) throws IOException{
+        Produto novo = new Produto(
+                txtNome.getText(),
+                Integer.parseInt(txtQuantidade.getText()),
+                Double.parseDouble(txtValor.getText()),
+                txtValidade.getText()
+        );
 
+        ProdutoDao dao = new ProdutoDao();
+        dao.insert(novo);
+
+        lvProdutos.getItems().add(novo);
+        lvProdutos.refresh();
     }
 
     public void removerEstoque(ActionEvent event) throws IOException{
+        Produto selecionado = lvProdutos.getSelectionModel().getSelectedItem();
 
+        if (selecionado != null) {
+            ProdutoDao dao = new ProdutoDao();
+            dao.deleteById(selecionado.getId());
+            lvProdutos.getItems().remove(selecionado);
+            lvProdutos.refresh();
+        } else {
+            System.out.println("Nenhum produto selecionado para remover!");
+        }
     }
 
-    public void adicionarFilme(ActionEvent event) throws IOException{
-
+    public void adicionarFilme() {
+        Filme novo = new Filme(
+                txtNome.getText(),
+                txtClassificacao.getText(),
+                txtGenero.getText(),
+                txtDuracao.getText(),
+                Double.parseDouble(txtPreco.getText())
+        );
+        FilmeDao dao = new FilmeDao();
+        dao.insert(novo);
+        lvFilmes.getItems().add(novo);
+        lvFilmes.refresh();
     }
 
     public void removerFilme(ActionEvent event) throws IOException{
+        Filme selecionado = lvFilmes.getSelectionModel().getSelectedItem();
 
+        if (selecionado != null) {
+            FilmeDao dao = new FilmeDao();
+            dao.deleteById(selecionado.getId());
+            lvFilmes.getItems().remove(selecionado);
+            lvFilmes.refresh();
+        } else {
+            System.out.println("Nenhum selecionado selecionado para remover!");
+        }
     }
 
     public void VoltarLogin(ActionEvent event) throws IOException {

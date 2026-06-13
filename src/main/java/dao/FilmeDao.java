@@ -13,7 +13,7 @@ public class FilmeDao {
         try {
             conn = DB.getConnection();
             ps = conn.prepareStatement(
-                    "INSERT INTO filme (Nome, Classificacao, Genero, Duracao, Preco) VALUES (?, ?, ?, ?)",
+                    "INSERT INTO filme (Nome, Classificacao, Genero, Duracao, Preco) VALUES (?, ?, ?, ?, ?)",
                     Statement.RETURN_GENERATED_KEYS
             );
             ps.setString(1, obj.getNome());
@@ -26,7 +26,6 @@ public class FilmeDao {
             if (rowsAffected > 0) {
                 ResultSet rs = ps.getGeneratedKeys();
                 if (rs.next()) {
-                    // Atualiza o ID do objeto na memória com o ID gerado pelo Banco de Dados
                     obj.setId(rs.getInt(1));
                 }
                 DB.closeResultSet(rs);
@@ -34,11 +33,9 @@ public class FilmeDao {
         } catch (SQLException e) {
             throw new RuntimeException(e.getMessage());
         } finally {
-            // Mantendo a assinatura "closeStatment" exatamente igual à sua classe DB utilitária
             DB.closeStatment(ps);
         }
     }
-
     public List<Filme> findAll() {
         Connection conn = null;
         PreparedStatement st = null;
@@ -46,14 +43,10 @@ public class FilmeDao {
         try {
             conn = DB.getConnection();
             String sql = "SELECT * FROM filme ORDER BY Idfilme";
-
             st = conn.prepareStatement(sql);
             rs = st.executeQuery();
-
             List<Filme> list = new ArrayList<>();
             while (rs.next()) {
-                // Como sua classe Filme exige os parâmetros no construtor,
-                // passamos os dados coletados do ResultSet diretamente nele:
                 Filme filme = new Filme(
                         rs.getString("Nome"),
                         rs.getString("Classificacao"),
@@ -61,7 +54,6 @@ public class FilmeDao {
                         rs.getString("Duracao"),
                         rs.getDouble("Preco")
                 );
-                // O ID é injetado logo em seguida via Setter
                 filme.setId(rs.getInt("Idfilme"));
 
                 list.add(filme);
@@ -74,7 +66,6 @@ public class FilmeDao {
             DB.closeStatment(st);
         }
     }
-
     public void update(Filme obj) {
         Connection conn = null;
         PreparedStatement ps = null;
@@ -88,8 +79,7 @@ public class FilmeDao {
             ps.setString(3, obj.getGenero());
             ps.setString(4, obj.getDuracao());
             ps.setDouble(5, obj.getPreco());
-            ps.setInt(6, obj.getId()); // Filtro WHERE
-
+            ps.setInt(6, obj.getId());
             ps.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e.getMessage());
@@ -97,7 +87,6 @@ public class FilmeDao {
             DB.closeStatment(ps);
         }
     }
-
     public void deleteById(Integer id) {
         Connection conn = null;
         PreparedStatement ps = null;
