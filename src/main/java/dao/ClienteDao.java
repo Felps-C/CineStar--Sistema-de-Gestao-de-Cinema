@@ -14,11 +14,9 @@ public class ClienteDao {
         try {
             conn = DB.getConnection();
             ps = conn.prepareStatement(
-                    "INSERT INTO cliente (CPF, Nome) VALUES (?, ?)"
-            );
-            ps.setString(1, obj.getCPF());
+                    "INSERT INTO cliente (Id, Nome) VALUES (?, ?)");
+            ps.setInt(1, obj.getID());
             ps.setString(2, obj.getNome());
-
             ps.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e.getMessage());
@@ -26,24 +24,20 @@ public class ClienteDao {
             DB.closeStatment(ps);
         }
     }
-
     public List<Clientes> findAll() {
         Connection conn = null;
         PreparedStatement st = null;
         ResultSet rs = null;
         try {
             conn = DB.getConnection();
-            String sql = "SELECT * FROM clientes ORDER BY Nome";
-
+            String sql = "SELECT * FROM cliente ORDER BY Nome";
             st = conn.prepareStatement(sql);
             rs = st.executeQuery();
-
             List<Clientes> list = new ArrayList<>();
             while (rs.next()) {
-                // Instancia usando o construtor da sua classe: Cliente(nome, CPF)
                 Clientes cliente = new Clientes(
                         rs.getString("Nome"),
-                        rs.getString("Cpf")
+                        rs.getString("Id")
                 );
                 list.add(cliente);
             }
@@ -55,19 +49,15 @@ public class ClienteDao {
             DB.closeStatment(st);
         }
     }
-
     public void update(Clientes obj) {
         Connection conn = null;
         PreparedStatement ps = null;
         try {
             conn = DB.getConnection();
-            // Atualiza o nome baseado no CPF fornecido
             ps = conn.prepareStatement(
-                    "UPDATE cliente SET Nome = ? WHERE Cpf = ?"
-            );
+                    "UPDATE cliente SET Nome = ? WHERE Id = ?");
             ps.setString(1, obj.getNome());
-            ps.setString(2, obj.getCPF()); // Filtro WHERE
-
+            ps.setInt(2, obj.getID());
             ps.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e.getMessage());
@@ -76,14 +66,13 @@ public class ClienteDao {
         }
     }
 
-    // Alterado de "deleteById" para "deleteByCpf" para casar com o seu Model
-    public void deleteByCpf(String cpf) {
+    public void deleteByCpf(String id) {
         Connection conn = null;
         PreparedStatement ps = null;
         try {
             conn = DB.getConnection();
-            ps = conn.prepareStatement("DELETE FROM cliente WHERE Cpf = ?");
-            ps.setString(1, cpf);
+            ps = conn.prepareStatement("DELETE FROM cliente WHERE Id = ?");
+            ps.setString(1, id);
             ps.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e.getMessage());

@@ -20,7 +20,8 @@
                 <TextField fx:id="txtSessoes" layoutX="360.0" layoutY="197.0" promptText="Sessões" />
 
                 <Button layoutX="360.0" layoutY="237.0" onAction="#salvarFilme" text="Salvar Filme" />
-            <Button fx:id="Voltar" layoutX="14.0" layoutY="10.0" mnemonicParsing="false" onAction="#VoltarLogin" text="Login" />
+                <Button layoutX="460.0" layoutY="290.0" onAction="#adicionarFilme" text="Adicionar Filme" />
+                <Button fx:id="Voltar" layoutX="14.0" layoutY="10.0" mnemonicParsing="false" onAction="#VoltarLogin" text="Login" />
             <Button layoutX="121.0" layoutY="263.0" mnemonicParsing="false" onAction="#adicionarFilme" text="Adicionar filme" />
             <Button layoutX="297.0" layoutY="289.0" mnemonicParsing="false" onAction="#removerFilme" text="Remover filme" />
 
@@ -32,6 +33,9 @@
             <AnchorPane>
 
                 <ListView fx:id="lvProdutos" layoutX="169.0" layoutY="50.0" prefHeight="200" prefWidth="200" />
+                <TextField fx:id="txtQuantidade" layoutX="360.0" layoutY="45.0" promptText="Quantidade" />
+                <TextField fx:id="txtValidade" layoutX="360.0" layoutY="84.0" promptText="Validade" />
+                <TextField fx:id="txtValor" layoutX="360.0" layoutY="160.0" promptText="Valor" />
 
                 <Spinner fx:id="spQuantidade" layoutX="380.0" layoutY="96.0" />
 
