@@ -1,7 +1,9 @@
 package org.example.Cinema.Controlador;
 import java.io.IOException;
+import java.util.List;
 
 import dao.FilmeDao;
+import dao.SessaoDao;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,12 +17,13 @@ import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import org.example.Cinema.Model.Filme;
+import org.example.Cinema.Model.Sessao;
 
 public class ControllerTelaCliente {
 
         @FXML private ListView<Filme> lvFilmes;
         @FXML private Label lblInfo;
-        @FXML private ComboBox<String> cbSessoes;
+        @FXML private ComboBox<Sessao> cbSessoes;
         @FXML private Spinner<Integer> spQuantidade;
         @FXML private Label lblTotal;
         @FXML private Label lblMensagem;
@@ -47,24 +50,27 @@ public class ControllerTelaCliente {
             );
         }
 
-        private void mostrarFilme(Filme filme) {
-            if (filme == null) return;
+    private void mostrarFilme(Filme filme) {
+        if (filme == null) return;
 
-            filmeSelecionado = filme;
-            lblMensagem.setVisible(false);
+        filmeSelecionado = filme;
+        lblMensagem.setVisible(false);
 
-            lblInfo.setText(
-                    "Nome: " + filme.getNome() + "\n" +
-                            "Classificação: " + filme.getClassificacao() + "\n" +
-                            "Gênero: " + filme.getGenero() + "\n" +
-                            "Duração: " + filme.getDuracao() + "\n" +
-                            "Preço: R$ " + filme.getPreco()
-            );
+        lblInfo.setText(
+                "Nome: " + filme.getNome() + "\n" +
+                        "Classificação: " + filme.getClassificacao() + "\n" +
+                        "Gênero: " + filme.getGenero() + "\n" +
+                        "Duração: " + filme.getDuracao() + "\n" +
+                        "Preço: R$ " + filme.getPreco()
+        );
 
-            cbSessoes.setValue(null);
-
-            calcularTotal();
-        }
+        cbSessoes.setValue(null);
+        cbSessoes.getItems().clear();
+        SessaoDao sessaoDao = new SessaoDao();
+        List<Sessao> horariosReais = sessaoDao.buscarSessoesPorFilme(filme.getId());
+        cbSessoes.getItems().addAll(horariosReais);
+        calcularTotal();
+    }
 
         private void calcularTotal() {
             if (filmeSelecionado == null) return;
