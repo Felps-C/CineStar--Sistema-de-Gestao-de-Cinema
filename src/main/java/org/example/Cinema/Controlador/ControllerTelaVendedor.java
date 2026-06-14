@@ -35,6 +35,7 @@ public class ControllerTelaVendedor {
         lvProdutos.getSelectionModel().selectedItemProperty().addListener(
                 (obs, oldV, newV) -> produtoSelecionado = newV
         );
+
     }
 
     public void atualizarEstoque() {
@@ -54,16 +55,28 @@ public class ControllerTelaVendedor {
     }
 
     public void solicitarReposicao() {
-
         if (produtoSelecionado == null) {
             mostrarMensagem("Selecione um produto!", "red");
             return;
         }
 
-        mostrarMensagem(
-                "Reposição solicitada para: " + produtoSelecionado.getNome(),
-                "orange"
-        );
+        java.sql.Connection conn = null;
+        java.sql.PreparedStatement ps = null;
+        try {
+            conn = db.DB.getConnection();
+            String sql = "INSERT INTO solicitacao_reposicao (produto_id, nome_produto, quantidade_solicitada) VALUES (?, ?, ?)";
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, produtoSelecionado.getId()); // Adapte para o método real de obter ID se for diferente
+            ps.setString(2, produtoSelecionado.getNome());
+            ps.setInt(3, spQuantidade.getValue() > 0 ? spQuantidade.getValue() : 50); // Se o spinner for 0, pede 50 padrão
+
+            ps.executeUpdate();
+            mostrarMensagem("Reposição solicitada para o gerente!", "green");
+        } catch (java.sql.SQLException e) {
+            mostrarMensagem("Erro ao enviar solicitação: " + e.getMessage(), "red");
+        } finally {
+            db.DB.closeStatment(ps);
+        }
     }
 
     private void mostrarMensagem(String texto, String cor) {

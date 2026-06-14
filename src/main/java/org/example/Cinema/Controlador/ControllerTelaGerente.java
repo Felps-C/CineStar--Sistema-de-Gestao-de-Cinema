@@ -21,6 +21,7 @@ public class ControllerTelaGerente {
     @FXML private ListView<Filme> lvFilmes;
     @FXML private TextField txtNomeF, txtNomeP, txtClassificacao, txtGenero, txtDuracao, txtPreco, txtValidade, txtValor;
     @FXML private TextField txtQuantidade;
+    @FXML private Label lblAvisoReposicao;
 
     private Filme filmeSelecionado;
 
@@ -36,19 +37,17 @@ public class ControllerTelaGerente {
         lvFilmes.getItems().addAll(dao.findAll());
 
         lvFilmes.getSelectionModel().selectedItemProperty().addListener(
-                (obs, oldV, newV) -> carregarFilme(newV)
-        );
+                (obs, oldV, newV) -> carregarFilme(newV));
 
         ProdutoDao produtoDao = new ProdutoDao();
         lvProdutos.getItems().addAll(produtoDao.findAll());
 
         spQuantidade.setValueFactory(
-                new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 1000, 0)
-        );
+                new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 1000, 0));
 
         lvProdutos.getSelectionModel().selectedItemProperty().addListener(
-                (obs, oldV, newV) -> carregarEstoque(newV)
-        );
+                (obs, oldV, newV) -> carregarEstoque(newV));
+        verificarSolicitacoesReposicao();
     }
 
     private void carregarFilme(Filme filme) {
@@ -91,11 +90,24 @@ public class ControllerTelaGerente {
 
     public void reporEstoque() {
         if (produtoSelecionado == null) return;
-
         produtoSelecionado.setQuantidade(spQuantidade.getValue());
-
         ProdutoDao dao = new ProdutoDao();
         dao.update(produtoSelecionado);
+
+        java.sql.Connection conn = null;
+        java.sql.PreparedStatement ps = null;
+        try {
+            conn = db.DB.getConnection();
+            String sql = "UPDATE solicitacao_reposicao SET status = 'CONCLUIDO' WHERE produto_id = ? AND status = 'PENDENTE'";
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, produtoSelecionado.getId());
+            ps.executeUpdate();
+        } catch (java.sql.SQLException e) {
+            System.err.println("Erro ao finalizar status da solicitação: " + e.getMessage());
+        } finally {
+            db.DB.closeStatment(ps);
+        }
+        verificarSolicitacoesReposicao();
 
         lvProdutos.refresh();
     }
@@ -125,6 +137,30 @@ public class ControllerTelaGerente {
             lvProdutos.refresh();
         } else {
             System.out.println("Nenhum produto selecionado para remover!");
+        }
+    }
+    private void verificarSolicitacoesReposicao() {
+        java.sql.Connection conn = null;
+        java.sql.PreparedStatement st = null;
+        java.sql.ResultSet rs = null;
+        try {
+            conn = db.DB.getConnection();
+            String sql = "SELECT nome_produto, quantidade_solicitada FROM solicitacao_reposicao WHERE status = 'PENDENTE' ORDER BY Idsolicitacao DESC LIMIT 1";
+            st = conn.prepareStatement(sql);
+            rs = st.executeQuery();
+            if (rs.next()) {
+                String nomeProd = rs.getString("nome_produto");
+                int qtd = rs.getInt("quantidade_solicitada");
+                lblAvisoReposicao.setText("⚠️ Vendedor solicitou reposição de: " + nomeProd + " (Qtd: " + qtd + ")");
+                lblAvisoReposicao.setVisible(true);
+            } else {
+                lblAvisoReposicao.setVisible(false);
+            }
+        } catch (java.sql.SQLException e) {
+            System.err.println("Erro ao verificar notificações: " + e.getMessage());
+        } finally {
+            db.DB.closeResultSet(rs);
+            db.DB.closeStatment(st);
         }
     }
 
