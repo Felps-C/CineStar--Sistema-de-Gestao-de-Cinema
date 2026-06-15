@@ -31,7 +31,7 @@
          </children>
       </Pane>
 
-      <Label alignment="CENTER" layoutX="0.0" layoutY="450.0" prefWidth="900.0" text="Simulador de Gestão - JavaFX" textFill="WHITE">
+      <Label alignment="CENTER" layoutX="0.0" layoutY="450.0" prefWidth="900.0" text="Simulador de Gestão de Cinema - JavaFX" textFill="WHITE">
          <font>
             <Font size="13.0" />
          </font>
