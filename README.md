@@ -26,9 +26,9 @@ Para rodar este projeto na sua máquina, certifique-se de ter os seguintes itens
 1. Abra o seu gerenciador do MySQL (como o MySQL Workbench, DBeaver ou via terminal).
 2. Localize o arquivo **`banco_de_dados.sql`** na raiz deste repositório.
 3. Copie todo o conteúdo do arquivo e execute no seu console SQL. O script irá criar:
-    * O banco de dados chamado `cinema`.
-    * Todas as tabelas necessárias (`usuarios`, `filmes`, `produtos`, etc).
-    * Os dados iniciais para o primeiro acesso ao sistema.
+   * O banco de dados chamado `cinema`.
+   * Todas as tabelas necessárias (`usuarios`, `filmes`, `produtos`, etc).
+   * Os dados iniciais para o primeiro acesso ao sistema.
 4. No código do projeto, abra a classe responsável pela conexão com o banco de dados `db.propieties`.
 5. Certifique-se de alterar as variáveis de **usuário** e **senha** para os dados correspondentes ao banco local da sua máquina (por exemplo, usuário `root` e a sua senha pessoal).
 
@@ -39,8 +39,8 @@ Para rodar este projeto na sua máquina, certifique-se de ter os seguintes itens
 1. **Clone o repositório** para a sua máquina ou baixe o arquivo `.zip` e extraia.
 2. **Abra o projeto** na sua IDE.
 3. **Configure as dependências**:
-    * Se o projeto utilizar o **Maven** (`pom.xml`), atualize o projeto para baixar as dependências do JavaFX e o driver do MySQL (`mysql-connector-java`).
-    * Se não utilizar Maven, adicione as bibliotecas do JavaFX e o arquivo `.jar` do conector do MySQL manualmente no *Build Path* do projeto.
+   * Se o projeto utilizar o **Maven** (`pom.xml`), atualize o projeto para baixar as dependências do JavaFX e o driver do MySQL (`mysql-connector-java`).
+   * Se não utilizar Maven, adicione as bibliotecas do JavaFX e o arquivo `.jar` do conector do MySQL manualmente no *Build Path* do projeto.
 4. Adicione as **VM Options** do JavaFX nas configurações de execução (Run Configuration) da sua IDE, apontando para a pasta `lib` do seu JavaFX SDK. Exemplo:
    `--module-path "C:\caminho\para\javafx-sdk\lib" --add-modules javafx.controls,javafx.fxml`
 5. Localize o pacote principal e execute a classe **`Main`** (aquela que contém os métodos `start` e `main`).

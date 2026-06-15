@@ -7,7 +7,6 @@
 <AnchorPane prefHeight="500.0" prefWidth="900.0" style="-fx-background-color: #2a0b45;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.Cinema.Controlador.ControllerTelaVendedor">
     <children>
 
-        <!-- CABEÇALHO -->
         <Button fx:id="Voltar" layoutX="20.0" layoutY="20.0" mnemonicParsing="false" onAction="#VoltarLogin" prefHeight="30.0" prefWidth="80.0" style="-fx-background-color: transparent; -fx-border-color: #c100ff; -fx-border-radius: 20; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand;" text="&lt; Sair" />
         <Label layoutX="120.0" layoutY="22.0" text="Ponto de Venda - Lanchonete" textFill="WHITE">
             <font>
@@ -15,17 +14,14 @@
             </font>
         </Label>
 
-        <!-- COLUNA ESQUERDA: LISTA DE PRODUTOS (AGORA MAIS LARGA) -->
         <Label layoutX="30.0" layoutY="80.0" text="Produtos Disponíveis" textFill="#c100ff">
             <font>
                 <Font name="System Bold" size="16.0" />
             </font>
         </Label>
 
-        <!-- Lista ampliada para 450 de largura para não cortar o texto -->
         <ListView fx:id="lvProdutos" layoutX="30.0" layoutY="110.0" prefHeight="350.0" prefWidth="450.0" style="-fx-border-color: #7e15d0; -fx-border-width: 2; -fx-border-radius: 5; -fx-background-radius: 5; -fx-font-size: 14px;" />
 
-        <!-- COLUNA DIREITA: CARTÃO DE AÇÕES -->
         <Pane layoutX="500.0" layoutY="110.0" prefHeight="350.0" prefWidth="370.0" style="-fx-background-color: white; -fx-background-radius: 15; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 10, 0, 0, 0);">
             <children>
                 <Label layoutX="30.0" layoutY="30.0" text="Ações do Produto" textFill="#7e15d0">
@@ -42,12 +38,10 @@
 
                 <Spinner fx:id="spQuantidade" layoutX="30.0" layoutY="115.0" prefHeight="35.0" prefWidth="150.0" style="-fx-border-color: #7e15d0;" />
 
-                <!-- Botões de Ação -->
                 <Button layoutX="30.0" layoutY="180.0" mnemonicParsing="false" onAction="#atualizarEstoque" prefHeight="45.0" prefWidth="310.0" style="-fx-background-color: #7e15d0; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 25; -fx-cursor: hand; -fx-font-size: 14px;" text="Atualizar Estoque (Venda)" />
 
                 <Button layoutX="30.0" layoutY="240.0" mnemonicParsing="false" onAction="#solicitarReposicao" prefHeight="45.0" prefWidth="310.0" style="-fx-background-color: #2a0b45; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 25; -fx-cursor: hand; -fx-font-size: 14px;" text="Solicitar Reposição" />
 
-                <!-- Mensagem de Feedback -->
                 <Label fx:id="lblMensagem" alignment="CENTER" layoutX="30.0" layoutY="305.0" prefWidth="310.0" text="Mensagem de status" textFill="#d11a2a" visible="false">
                     <font>
                         <Font name="System Bold" size="14.0" />
