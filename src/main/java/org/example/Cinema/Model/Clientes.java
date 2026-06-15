@@ -12,7 +12,6 @@ public class Clientes {
     public String getNome() {
         return nome;
     }
-
     public void setNome(String nome) {
         this.nome = nome;
     }
@@ -20,7 +19,6 @@ public class Clientes {
     public int getID() {
         return Id;
     }
-
     public void setID(int Id) {
         this.Id = Id;
     }

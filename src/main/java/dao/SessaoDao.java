@@ -20,7 +20,6 @@ public class SessaoDao {
             ps.setInt(1, obj.getFilmeId());
             ps.setString(2, obj.getHorario());
             ps.setString(3, obj.getSala());
-
             int rowsAffected = ps.executeUpdate();
             if (rowsAffected > 0) {
                 ResultSet rs = ps.getGeneratedKeys();
@@ -35,7 +34,6 @@ public class SessaoDao {
             DB.closeStatment(ps);
         }
     }
-
     public List<Sessao> buscarSessoesPorFilme(Integer idFilme) {
         Connection conn = null;
         PreparedStatement st = null;
@@ -46,7 +44,6 @@ public class SessaoDao {
             st = conn.prepareStatement(sql);
             st.setInt(1, idFilme);
             rs = st.executeQuery();
-
             List<Sessao> list = new ArrayList<>();
             while (rs.next()) {
                 Sessao sessao = new Sessao();
@@ -54,7 +51,6 @@ public class SessaoDao {
                 sessao.setFilmeId(rs.getInt("filme_id"));
                 sessao.setHorario(rs.getString("horario"));
                 sessao.setSala(rs.getString("sala"));
-
                 list.add(sessao);
             }
             return list;
@@ -65,7 +61,6 @@ public class SessaoDao {
             DB.closeStatment(st);
         }
     }
-
     public void update(Sessao obj) {
         Connection conn = null;
         PreparedStatement ps = null;
@@ -85,7 +80,6 @@ public class SessaoDao {
             DB.closeStatment(ps);
         }
     }
-
     public void deleteById(Integer id) {
         Connection conn = null;
         PreparedStatement ps = null;

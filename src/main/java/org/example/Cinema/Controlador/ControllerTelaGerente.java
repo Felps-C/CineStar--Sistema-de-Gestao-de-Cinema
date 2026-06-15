@@ -43,15 +43,16 @@ public class ControllerTelaGerente {
         lvFilmes.getItems().addAll(todosFilmes);
         cbFilmesSessao.getItems().addAll(todosFilmes);
         lvFilmes.getSelectionModel().selectedItemProperty().addListener((obs, oldV, newV) -> carregarFilme(newV));
+
         ProdutoDao produtoDao = new ProdutoDao();
         lvProdutos.getItems().addAll(produtoDao.findAll());
         spQuantidade.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 1000, 0));
         lvProdutos.getSelectionModel().selectedItemProperty().addListener((obs, oldV, newV) -> carregarEstoque(newV));
         verificarSolicitacoesReposicao();
+
         cbFilmesSessao.getSelectionModel().selectedItemProperty().addListener((obs, oldV, newV) -> {
             if (newV != null) {
-                atualizarListaSessoes(newV.getId()); // Agora passará o ID correto vindo do ComboBox!
-            }
+                atualizarListaSessoes(newV.getId());  }
         });
         lvSessoes.getSelectionModel().selectedItemProperty().addListener(
                 (obs, oldV, newV) -> carregarCamposSessao(newV)

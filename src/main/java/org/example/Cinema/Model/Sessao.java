@@ -6,10 +6,8 @@ public class Sessao {
     private String horario;
     private String sala;
 
-    // Construtor padrão
     public Sessao() {}
 
-    // Construtor completo
     public Sessao(int id, int filmeId, String horario, String sala) {
         this.id = id;
         this.filmeId = filmeId;

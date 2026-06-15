@@ -22,7 +22,6 @@ public class Filme {
     public int getId() {
         return Id;
     }
-
     public void setId(int Id) {
         this.Id = Id;
     }
@@ -30,7 +29,6 @@ public class Filme {
     public String getNome() {
         return nome;
     }
-
     public void setNome(String nome) {
         this.nome = nome;
     }
@@ -38,7 +36,6 @@ public class Filme {
     public String getClassificacao() {
         return classificacao;
     }
-
     public void setClassificacao(String classificacao) {
         this.classificacao = classificacao;
     }
@@ -46,7 +43,6 @@ public class Filme {
     public String getGenero() {
         return genero;
     }
-
     public void setGenero(String genero) {
         this.genero = genero;
     }
@@ -54,7 +50,6 @@ public class Filme {
     public String getDuracao() {
         return duracao;
     }
-
     public void setDuracao(String duracao) {
         this.duracao = duracao;
     }
@@ -62,10 +57,7 @@ public class Filme {
     public double getPreco() {
         return preco;
     }
-
-    public void setPreco(double preco) {
-        this.preco = preco;
-    }
+    public void setPreco(double preco) {this.preco = preco;}
 
     @Override
     public String toString() {

@@ -2,11 +2,9 @@ package dao;
 
 import db.DB;
 import org.example.Cinema.Model.Funcionario;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-
 
 public class FuncionarioDao {
 
@@ -41,7 +39,6 @@ public class FuncionarioDao {
             DB.closeStatment(ps);
         }
     }
-
     public List<Funcionario> findAll() {
         Connection conn = null;
         PreparedStatement st = null;
@@ -55,8 +52,6 @@ public class FuncionarioDao {
 
             List<Funcionario> list = new ArrayList<>();
             while (rs.next()) {
-                // Instancia respeitando a ordem exata do construtor:
-                // (nome, contato, genero, cargo, idade, salario)
                 Funcionario funcionario = new Funcionario(
                         rs.getString("Nome"),
                         rs.getString("Contato"),
@@ -65,7 +60,6 @@ public class FuncionarioDao {
                         rs.getInt("Idade"),
                         rs.getDouble("Salario")
                 );
-                // Injeta o ID recuperado via Setter
                 funcionario.setId(rs.getInt("Id"));
 
                 list.add(funcionario);
@@ -78,7 +72,6 @@ public class FuncionarioDao {
             DB.closeStatment(st);
         }
     }
-
     public void update(Funcionario obj) {
         Connection conn = null;
         PreparedStatement ps = null;
@@ -94,7 +87,6 @@ public class FuncionarioDao {
             ps.setInt(5, obj.getIdade());
             ps.setDouble(6, obj.getSalario());
             ps.setInt(7, obj.getId()); // Filtro do WHERE
-
             ps.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e.getMessage());
@@ -102,7 +94,6 @@ public class FuncionarioDao {
             DB.closeStatment(ps);
         }
     }
-
     public void deleteById(Integer id) {
         Connection conn = null;
         PreparedStatement ps = null;

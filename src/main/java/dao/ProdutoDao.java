@@ -15,18 +15,15 @@ public class ProdutoDao {
             conn = DB.getConnection();
             ps = conn.prepareStatement(
                     "INSERT INTO produto (Nome, Quantidade, Valor, Validade) VALUES (?, ?, ?, ?)",
-                    Statement.RETURN_GENERATED_KEYS
-            );
+                    Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, obj.getNome());
             ps.setInt(2, obj.getQuantidade());
             ps.setDouble(3, obj.getValor());
-            ps.setString(4, obj.getValidade()); // Tratado como String conforme seu modelo
-
+            ps.setString(4, obj.getValidade());
             int rowsAffected = ps.executeUpdate();
             if (rowsAffected > 0) {
                 ResultSet rs = ps.getGeneratedKeys();
                 if (rs.next()) {
-                    // Preenche o ID gerado automaticamente pelo banco de dados
                     obj.setId(rs.getInt(1));
                 }
                 DB.closeResultSet(rs);
@@ -37,7 +34,6 @@ public class ProdutoDao {
             DB.closeStatment(ps);
         }
     }
-
     public List<Produto> findAll() {
         Connection conn = null;
         PreparedStatement st = null;
@@ -45,22 +41,16 @@ public class ProdutoDao {
         try {
             conn = DB.getConnection();
             String sql = "SELECT * FROM produto ORDER BY Idlanche";
-
             st = conn.prepareStatement(sql);
             rs = st.executeQuery();
-
             List<Produto> list = new ArrayList<>();
             while (rs.next()) {
-                // Instancia usando o construtor customizado da sua classe Produto
                 Produto produto = new Produto(
                         rs.getString("Nome"),
                         rs.getInt("Quantidade"),
                         rs.getDouble("Valor"),
-                        rs.getString("Validade")
-                );
-                // Vincula o ID recuperado do banco
+                        rs.getString("Validade"));
                 produto.setId(rs.getInt("Idlanche"));
-
                 list.add(produto);
             }
             return list;
@@ -71,7 +61,6 @@ public class ProdutoDao {
             DB.closeStatment(st);
         }
     }
-
     public void update(Produto obj) {
         Connection conn = null;
         PreparedStatement ps = null;
@@ -84,8 +73,7 @@ public class ProdutoDao {
             ps.setInt(2, obj.getQuantidade());
             ps.setDouble(3, obj.getValor());
             ps.setString(4, obj.getValidade());
-            ps.setInt(5, obj.getId()); // Filtro do WHERE
-
+            ps.setInt(5, obj.getId());
             ps.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e.getMessage());
@@ -93,7 +81,6 @@ public class ProdutoDao {
             DB.closeStatment(ps);
         }
     }
-
     public void deleteById(Integer id) {
         Connection conn = null;
         PreparedStatement ps = null;
