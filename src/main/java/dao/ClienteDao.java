@@ -65,7 +65,6 @@ public class ClienteDao {
             DB.closeStatment(ps);
         }
     }
-
     public void deleteByCpf(String id) {
         Connection conn = null;
         PreparedStatement ps = null;

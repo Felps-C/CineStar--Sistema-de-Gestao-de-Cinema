@@ -33,9 +33,7 @@ public class ControllerTelaVendedor {
         );
 
         lvProdutos.getSelectionModel().selectedItemProperty().addListener(
-                (obs, oldV, newV) -> produtoSelecionado = newV
-        );
-
+                (obs, oldV, newV) -> produtoSelecionado = newV);
     }
 
     public void atualizarEstoque() {
@@ -46,7 +44,6 @@ public class ControllerTelaVendedor {
 
         produtoSelecionado.setQuantidade(spQuantidade.getValue());
 
-        // Atualiza no banco
         ProdutoDao dao = new ProdutoDao();
         dao.update(produtoSelecionado);
 
@@ -66,10 +63,9 @@ public class ControllerTelaVendedor {
             conn = db.DB.getConnection();
             String sql = "INSERT INTO solicitacao_reposicao (produto_id, nome_produto, quantidade_solicitada) VALUES (?, ?, ?)";
             ps = conn.prepareStatement(sql);
-            ps.setInt(1, produtoSelecionado.getId()); // Adapte para o método real de obter ID se for diferente
+            ps.setInt(1, produtoSelecionado.getId());
             ps.setString(2, produtoSelecionado.getNome());
-            ps.setInt(3, spQuantidade.getValue() > 0 ? spQuantidade.getValue() : 50); // Se o spinner for 0, pede 50 padrão
-
+            ps.setInt(3, spQuantidade.getValue() > 0 ? spQuantidade.getValue() : 50);
             ps.executeUpdate();
             mostrarMensagem("Reposição solicitada para o gerente!", "green");
         } catch (java.sql.SQLException e) {
