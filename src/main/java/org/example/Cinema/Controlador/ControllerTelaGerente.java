@@ -2,6 +2,7 @@ package org.example.Cinema.Controlador;
 
 import dao.FilmeDao;
 import dao.ProdutoDao;
+import dao.SessaoDao;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,6 +13,7 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import org.example.Cinema.Model.Filme;
 import org.example.Cinema.Model.Produto;
+import org.example.Cinema.Model.Sessao;
 
 import java.io.IOException;
 
@@ -22,6 +24,10 @@ public class ControllerTelaGerente {
     @FXML private TextField txtNomeF, txtNomeP, txtClassificacao, txtGenero, txtDuracao, txtPreco, txtValidade, txtValor;
     @FXML private TextField txtQuantidade;
     @FXML private Label lblAvisoReposicao;
+    @FXML private ListView<Sessao> lvSessoes;
+    @FXML private ComboBox<Filme> cbFilmesSessao;
+    @FXML private TextField txtHorario, txtSala;
+    private Sessao sessaoSelecionada;
 
     private Filme filmeSelecionado;
 
@@ -32,47 +38,66 @@ public class ControllerTelaGerente {
 
     @FXML
     public void initialize() {
-
         FilmeDao dao = new FilmeDao();
-        lvFilmes.getItems().addAll(dao.findAll());
-
-        lvFilmes.getSelectionModel().selectedItemProperty().addListener(
-                (obs, oldV, newV) -> carregarFilme(newV));
-
+        java.util.List<Filme> todosFilmes = dao.findAll();
+        lvFilmes.getItems().addAll(todosFilmes);
+        cbFilmesSessao.getItems().addAll(todosFilmes);
+        lvFilmes.getSelectionModel().selectedItemProperty().addListener((obs, oldV, newV) -> carregarFilme(newV));
         ProdutoDao produtoDao = new ProdutoDao();
         lvProdutos.getItems().addAll(produtoDao.findAll());
-
-        spQuantidade.setValueFactory(
-                new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 1000, 0));
-
-        lvProdutos.getSelectionModel().selectedItemProperty().addListener(
-                (obs, oldV, newV) -> carregarEstoque(newV));
+        spQuantidade.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 1000, 0));
+        lvProdutos.getSelectionModel().selectedItemProperty().addListener((obs, oldV, newV) -> carregarEstoque(newV));
         verificarSolicitacoesReposicao();
+        cbFilmesSessao.getSelectionModel().selectedItemProperty().addListener((obs, oldV, newV) -> {
+            if (newV != null) {
+                atualizarListaSessoes(newV.getId()); // Agora passará o ID correto vindo do ComboBox!
+            }
+        });
+        lvSessoes.getSelectionModel().selectedItemProperty().addListener(
+                (obs, oldV, newV) -> carregarCamposSessao(newV)
+        );
     }
-
     private void carregarFilme(Filme filme) {
         if (filme == null) return;
-
         filmeSelecionado = filme;
-
         txtNomeF.setText(filme.getNome());
         txtClassificacao.setText(filme.getClassificacao());
         txtGenero.setText(filme.getGenero());
         txtDuracao.setText(filme.getDuracao());
         txtPreco.setText(String.valueOf(filme.getPreco()));
     }
-
     public void salvarFilme() {
         filmeSelecionado.setNome(txtNomeF.getText());
         filmeSelecionado.setClassificacao(txtClassificacao.getText());
         filmeSelecionado.setGenero(txtGenero.getText());
         filmeSelecionado.setDuracao(txtDuracao.getText());
         filmeSelecionado.setPreco(Double.parseDouble(txtPreco.getText()));
-
         FilmeDao dao = new FilmeDao();
         dao.update(filmeSelecionado);
-
         lvFilmes.refresh();
+    }
+    public void adicionarFilme() {
+        Filme novo = new Filme(
+                txtNomeF.getText(),
+                txtClassificacao.getText(),
+                txtGenero.getText(),
+                txtDuracao.getText(),
+                Double.parseDouble(txtPreco.getText()));
+        FilmeDao dao = new FilmeDao();
+        dao.insert(novo);
+        lvFilmes.getItems().add(novo);
+        lvFilmes.refresh();
+    }
+    public void removerFilme(ActionEvent event) throws IOException {
+        Filme selecionado = lvFilmes.getSelectionModel().getSelectedItem();
+        if (selecionado != null) {
+            FilmeDao dao = new FilmeDao();
+            dao.deleteById(selecionado.getId());
+            lvFilmes.getItems().remove(selecionado);
+            lvFilmes.refresh();
+        } else {
+            System.out.println("Nenhum filme selecionado para remover!");
+        }
     }
 
     private void carregarEstoque(Produto produto) {
@@ -111,22 +136,17 @@ public class ControllerTelaGerente {
 
         lvProdutos.refresh();
     }
-
     public void adicionarEstoque(ActionEvent event) throws IOException {
         Produto novo = new Produto(
                 txtNomeP.getText(),
                 Integer.parseInt(txtQuantidade.getText()),
                 Double.parseDouble(txtValor.getText()),
-                txtValidade.getText()
-        );
-
+                txtValidade.getText());
         ProdutoDao dao = new ProdutoDao();
         dao.insert(novo);
-
         lvProdutos.getItems().add(novo);
         lvProdutos.refresh();
     }
-
     public void removerEstoque(ActionEvent event) throws IOException {
         Produto selecionado = lvProdutos.getSelectionModel().getSelectedItem();
 
@@ -164,31 +184,48 @@ public class ControllerTelaGerente {
         }
     }
 
-    public void adicionarFilme() {
-        Filme novo = new Filme(
-                txtNomeF.getText(),
-                txtClassificacao.getText(),
-                txtGenero.getText(),
-                txtDuracao.getText(),
-                Double.parseDouble(txtPreco.getText())
-        );
-        FilmeDao dao = new FilmeDao();
-        dao.insert(novo);
-        lvFilmes.getItems().add(novo);
-        lvFilmes.refresh();
+    private void atualizarListaSessoes(int filmeId) {
+        lvSessoes.getItems().clear();
+        SessaoDao sDao = new SessaoDao();
+        lvSessoes.getItems().addAll(sDao.buscarSessoesPorFilme(filmeId));
+    }
+    private void carregarCamposSessao(Sessao sessao) {
+        if (sessao == null) return;
+        sessaoSelecionada = sessao;
+        txtHorario.setText(sessao.getHorario());
+        txtSala.setText(sessao.getSala());
+    }
+    @FXML
+    public void adicionarSessao() {
+        Filme filme = cbFilmesSessao.getValue();
+        if (filme == null || txtHorario.getText().isEmpty()) return;
+        Sessao nova = new Sessao();
+        nova.setFilmeId(filme.getId());
+        nova.setHorario(txtHorario.getText());
+        nova.setSala(txtSala.getText());
+        SessaoDao sDao = new SessaoDao();
+        sDao.insert(nova);
+        atualizarListaSessoes(filme.getId());
+    }
+    @FXML
+    public void salvarSessao() {
+        if (sessaoSelecionada == null) return;
+        sessaoSelecionada.setHorario(txtHorario.getText());
+        sessaoSelecionada.setSala(txtSala.getText());
+        SessaoDao sDao = new SessaoDao();
+        sDao.update(sessaoSelecionada);
+        atualizarListaSessoes(sessaoSelecionada.getFilmeId());
     }
 
-    public void removerFilme(ActionEvent event) throws IOException {
-        Filme selecionado = lvFilmes.getSelectionModel().getSelectedItem();
-
-        if (selecionado != null) {
-            FilmeDao dao = new FilmeDao();
-            dao.deleteById(selecionado.getId());
-            lvFilmes.getItems().remove(selecionado);
-            lvFilmes.refresh();
-        } else {
-            System.out.println("Nenhum filme selecionado para remover!");
-        }
+    @FXML
+    public void removerSessao() {
+        if (sessaoSelecionada == null) return;
+        SessaoDao sDao = new SessaoDao();
+        sDao.deleteById(sessaoSelecionada.getId());
+        atualizarListaSessoes(sessaoSelecionada.getFilmeId());
+        txtHorario.clear();
+        txtSala.clear();
+        sessaoSelecionada = null;
     }
 
     public void VoltarLogin(ActionEvent event) throws IOException {
