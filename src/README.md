@@ -29,7 +29,7 @@ Para rodar este projeto na sua máquina, certifique-se de ter os seguintes itens
     * O banco de dados chamado `cinema`.
     * Todas as tabelas necessárias (`usuarios`, `filmes`, `produtos`, etc).
     * Os dados iniciais para o primeiro acesso ao sistema.
-4. No código do projeto, abra a classe responsável pela conexão com o banco de dados (geralmente chamada de `Conexao`, `Database` ou similar).
+4. No código do projeto, abra a classe responsável pela conexão com o banco de dados `db.propieties`.
 5. Certifique-se de alterar as variáveis de **usuário** e **senha** para os dados correspondentes ao banco local da sua máquina (por exemplo, usuário `root` e a sua senha pessoal).
 
 ---
@@ -45,3 +45,26 @@ Para rodar este projeto na sua máquina, certifique-se de ter os seguintes itens
    `--module-path "C:\caminho\para\javafx-sdk\lib" --add-modules javafx.controls,javafx.fxml`
 5. Localize o pacote principal e execute a classe **`Main`** (aquela que contém os métodos `start` e `main`).
 6. A tela inicial de boas-vindas do **CineStar** será aberta e o sistema estará pronto para uso!
+
+## 🧪 Como Testar e Entender o Sistema
+
+Para vivenciar a experiência completa do simulador, recomendamos que você teste o sistema seguindo o fluxo de integração abaixo:
+
+### 1. Perfil: Gerente (Backoffice)
+* Inicie o sistema e faça login como **Gerente** (você pode usar as credenciais padrão geradas pelo `banco_de_dados.sql`).
+* **Catálogo:** Acesse a aba de filmes, cadastre um novo filme preenchendo todos os dados (nome, duração, sessões, etc.) e clique em "Adicionar Novo".
+* **Estoque:** Vá para a aba da Bomboniere e adicione produtos iniciais (ex: Pipoca, Refrigerante) com suas respectivas quantidades.
+
+### 2. Perfil: Cliente (Autoatendimento)
+* Saia da conta do gerente e acesse a tela do **Cliente**.
+* Observe que os filmes cadastrados pelo gerente já aparecem na lista com o layout claro (Light Theme).
+* Clique em um filme, selecione o horário no menu, mude a quantidade de ingressos e veja o **cálculo automático** do valor total funcionando em tempo real antes de confirmar a compra.
+
+### 3. Perfil: Vendedor (Ponto de Venda)
+* Acesse o sistema como **Vendedor** para ver o layout em Modo Escuro (Dark Theme), projetado para não cansar a vista durante o expediente.
+* Simule uma venda selecionando um produto da lanchonete e clicando em "Atualizar Estoque (Venda)".
+* **Teste de Comunicação:** Selecione um produto que esteja acabando e clique no botão **"Solicitar Reposição"**. O sistema fará a comunicação direta com o banco de dados.
+
+### 4. Fechando o Ciclo (Retorno ao Gerente)
+* Volte para a tela do **Gerente**, acesse a aba de Estoque e verifique que o pedido de reposição feito pelo Vendedor já reflete no painel administrativo.
+* Atualize a quantidade do produto, limpando o alerta e completando o ciclo do sistema!
